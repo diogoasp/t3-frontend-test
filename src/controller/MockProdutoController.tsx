@@ -2,33 +2,43 @@ import { IProduto } from "../interfaces/produto";
 import { IProdutoController } from "../interfaces/produtoController";
 import { IProdutoRepository } from "../interfaces/produtoRepository";
 import MockProduto from "../models/Produto";
+import MockProdutoRepository from "../repository/MockProdutoRepository";
 
 export default class MockProdutoController implements IProdutoController {
 
   private repo: IProdutoRepository;
 
-  constructor(repo: IProdutoRepository) {
-    this.repo = repo;
+  constructor() {
+    this.repo = MockProdutoRepository.getInstance();
   }
 
   getAll(): IProduto[] {
-    let resposta = this.repo.getAll();
-    let produtos: IProduto[] = [];
-    resposta.forEach(resp => {
-      produtos.push(new MockProduto(resp))
-    });
-    return produtos;
-
+    return this.repo.getAll();
   }
 
-  getProduto(_id: string): IProduto {
-    throw new Error("Method not implemented.");
+  getProduto(_id: number): IProduto {
+    let produto = this.repo.getProduto(_id);
+    if (produto === undefined) {
+      return new MockProduto();
+    }
+    return this.repo.getProduto(_id);
   }
   setProduto(produto: IProduto): boolean {
-    throw new Error("Method not implemented.");
+    try {
+      this.repo.setProduto(produto);
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
   }
-  deleteProduto(_id: string): void {
-    throw new Error("Method not implemented.");
+  deleteProduto(_id: number): boolean {
+    try {
+      this.repo.deleteProduto(_id);
+      return true;
+    } catch (error) {
+      return false;
+    }
   }
 
 }
