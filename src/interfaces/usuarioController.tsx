@@ -1,5 +1,5 @@
-import { IUsuarioRepository } from "./usuarioRepository";
+import { IUsuario } from "./usuario";
 
 export interface IUsuarioController {
-    loginUsuario(repo: IUsuarioRepository): boolean;
+    loginUsuario(email: string, senha: string): boolean;
 }

@@ -1,5 +1,5 @@
 import { IUsuario } from "./usuario";
 
 export interface IUsuarioRepository{   
-    verificarUsuario(usuario: IUsuario): boolean
+    verificarUsuario(email: string, senha: string): boolean
 }

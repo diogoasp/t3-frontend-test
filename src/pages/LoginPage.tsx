@@ -1,13 +1,25 @@
 import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import MockUsuarioController from "../controller/MockUsuarioController";
+import MockUsuarioRepository from "../repository/MockUsuarioRepository";
 
 const LoginPage = () =>{
+    const navigate = useNavigate();
 
     const [senha, setSenha] = useState("");
     const [email, setEmail] = useState("");
-
+    
     const login = (evento: React.FormEvent) => {
+
+        const controller = new MockUsuarioController(new MockUsuarioRepository);
+
         evento.preventDefault();
+        if (controller.loginUsuario(email, senha)) {
+            navigate("/products")
+        } else {
+            console.log("Login falhou!");
+        }
+        
     };
 
     return (

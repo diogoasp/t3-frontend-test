@@ -3,10 +3,11 @@ import { IUsuarioRepository } from "../interfaces/usuarioRepository";
 
 export default class MockUsuarioRepository implements IUsuarioRepository {
     
-    constructor(private usuario: IUsuario){}
+    private usuarioDefault = {_id: 1, "email":"admin@gmail.com", "senha":"123"}
     
-    verificarUsuario(usuario: IUsuario): boolean {
-        throw new Error("Method not implemented.");
+    verificarUsuario(email: string, senha: string): boolean {
+        if(this.usuarioDefault.email != email) return false;
+        return true;
     }
 
 }
