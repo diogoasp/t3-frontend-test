@@ -5,7 +5,10 @@ interface ProdutoProps {
   produto: IProduto;
 }
 
-const ProductTable = ({ produto }: ProdutoProps) => {
+const ProductLines = ({ produto }: ProdutoProps) => {
+
+
+
   return (
     <tr>
       <td>{produto.nome}</td>
@@ -15,4 +18,4 @@ const ProductTable = ({ produto }: ProdutoProps) => {
   )
 }
 
-export default ProductTable;
+export default ProductLines;

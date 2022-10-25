@@ -2,18 +2,13 @@ import { IProduto } from "../interfaces/produto";
 
 export default class MockProduto implements IProduto {
   _id: number | undefined;
-  nome: string;
-  descricao: string;
-  valor: number;
+  nome: string | undefined;
+  descricao: string | undefined;
+  valor: number | undefined;
 
-  constructor(produto: { "nome": string, "descricao": string, "valor": number, "_id": number }) {
-    this._id = produto._id;
-    this.nome = produto.nome;
-    this.descricao = produto.descricao;
-    this.valor = produto.valor;
+  constructor(b: Partial<MockProduto> = {}) {
+    Object.assign(this, b);
   }
-
-
 
 
 }

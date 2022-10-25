@@ -1,12 +1,16 @@
-import {BrowserRouter, Route, Routes, Navigate} from "react-router-dom"
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import EditProdutoPage from "./pages/EditProdutoPage";
 import LoginPage from "./pages/LoginPage";
+import ProdutosPage from "./pages/ProdutosPage";
 
 const AppRoutes = () => {
 
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/login" element={<LoginPage/>}/>
+                <Route path="/" element={<LoginPage />} />
+                <Route path="/produtos" element={<ProdutosPage />} />
+                <Route path="/produtos/editar/:id" element={<EditProdutoPage />} />
             </Routes>
         </BrowserRouter>
     )
