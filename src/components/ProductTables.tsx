@@ -28,7 +28,7 @@ const ProductTable = ({ controller }: ProdutoProps) => {
 
   return (
     <>
-      <table>
+      <table data-testid="productTable">
         <tr>
           <th> Nome </th>
           <th> Descrição </th>
@@ -38,12 +38,12 @@ const ProductTable = ({ controller }: ProdutoProps) => {
         {
           produtos.map((prod) => (
 
-            <tr key={prod._id}>
+            <tr key={prod._id} data-testid={prod._id}>
               <td>{prod.nome}</td>
               <td>{prod.descricao}</td>
               <td>{prod.valor}</td>
               <td><Link to={{ pathname: `editar/${prod._id}` }}>Editar </Link></td>
-              <td><button onClick={deleteHandler(prod._id !== undefined ? prod._id : 0)} >excluir</button></td>
+              <td><button data-testid={prod._id + "-excluir"} onClick={deleteHandler(prod._id !== undefined ? prod._id : 0)} >excluir</button></td>
             </tr>
           ))
         }
