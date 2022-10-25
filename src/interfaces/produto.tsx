@@ -1,5 +1,5 @@
 export interface IProduto {
-  _id: string;
+  _id: number | undefined;
   nome: string;
   descricao: string;
   valor: number;
