@@ -1,23 +1,29 @@
-import { ObjectId } from "mongodb";
 import { IProduto } from "../interfaces/IProduto";
 import { IRepository } from "../interfaces/IRepository";
 import Produto from "../database/schemas/ProdutoTabela";
 
 export default class ProdutoRepository implements IRepository {
     
-    save(produto: IProduto): Promise<void> {
-        throw new Error("Method not implemented.");
+    async save(produto: IProduto): Promise<void> {
+        const data = await Produto.create(produto);
+        console.log(data);
     }
-    delete(id: string): Promise<void> {
-        throw new Error("Method not implemented.");
+
+    async delete(id: string): Promise<void> {
+        const prod = await this.getById(id);
+        const data = await Produto.remove(prod);
+        console.log(data);
     }
-    update(id: string, produto: IProduto): Promise<void> {
-        throw new Error("Method not implemented.");
+
+    async update(id: string, produto: IProduto): Promise<void> {
+        let prod = await this.getById(id);
+        prod = produto;
+        const data = await Produto.updateOne(prod);
+        console.log(data)
     }
     
     async getAll(): Promise<IProduto[]> {
         const produto = await Produto.find({});
-        console.log(produto)
         return produto
     }
 
