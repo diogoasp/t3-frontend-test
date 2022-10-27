@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { IUsuario } from "./interfaces/usuario";
 import EditProdutoPage from "./pages/EditProdutoPage";
 import LoginPage from "./pages/LoginPage";
 import ProdutosPage from "./pages/ProdutosPage";

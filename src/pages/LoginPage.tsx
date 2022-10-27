@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import MockUsuarioController from "../controller/MockUsuarioController";
 import MockUsuarioRepository from "../repository/MockUsuarioRepository";
 import Form from 'react-bootstrap/Form';
+import { IUsuario } from "../interfaces/usuario";
 
 const LoginPage = () => {
     const navigate = useNavigate();
@@ -18,11 +19,10 @@ const LoginPage = () => {
 
         evento.preventDefault();
         if (controller.loginUsuario(email, senha)) {
-            console.log("Login Sucesso!");
-            navigate("/produtos")
+            const u: IUsuario = controller.getUsuario(email);
+            navigate("/produtos", { state: { user: u } });
         } else {
             setErroMsg(true);
-            console.log("Login falhou!");
         }
 
     };

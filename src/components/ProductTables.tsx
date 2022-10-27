@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import { IProdutoController } from '../interfaces/produtoController';
+import { IUsuario } from '../interfaces/usuario';
 
 interface ProdutoProps {
   controller: IProdutoController;
+  user?: IUsuario | undefined;
 }
 
-const ProductTable = ({ controller }: ProdutoProps) => {
+const ProductTable = ({ controller, user }: ProdutoProps) => {
   // const navigate = useNavigate();
   let produtos = controller.getAll();
   const forceUpdate = React.useReducer(() => ({}), {})[1] as () => void
@@ -23,6 +25,9 @@ const ProductTable = ({ controller }: ProdutoProps) => {
       deletar(id);
       event.preventDefault();
     }
+  }
+  const eAdmin = () => {
+    return user?.role === 0;
   }
 
 
@@ -42,8 +47,13 @@ const ProductTable = ({ controller }: ProdutoProps) => {
               <td>{prod.nome}</td>
               <td>{prod.descricao}</td>
               <td>{prod.valor}</td>
-              <td><Link to={{ pathname: `editar/${prod._id}` }}>Editar </Link></td>
-              <td><button data-testid={prod._id + "-excluir"} onClick={deleteHandler(prod._id !== undefined ? prod._id : 0)} >excluir</button></td>
+              {eAdmin() ?
+                < div >
+                  <td><Link to={{ pathname: `editar/${prod._id}` }}>Editar </Link></td>
+                  <td><button data-testid={prod._id + "-excluir"} onClick={deleteHandler(prod._id !== undefined ? prod._id : 0)} >excluir</button></td>
+                </div>
+                : <td><button data-testid={prod._id + "-add"} onClick={deleteHandler(prod._id !== undefined ? prod._id : 0)} >Adicionar ao Carrinho</button></td>
+              }
             </tr>
           ))
         }
