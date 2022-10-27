@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 
 export interface IController {
-    getAll(req: Request, res: Response): Promise<Response>
-    getById(req: Request, res: Response): Promise<Response>
-    save(req: Request, res: Response): Promise<Response>
-    delete(req: Request, res: Response): Promise<Response>
-    update(req: Request, res: Response): Promise<Response>
+    todosProdutos(req: Request, res: Response): Promise<Response>
+    produtoPorId(req: Request, res: Response): Promise<Response>
+    inserir(req: Request, res: Response): Promise<Response>
+    deletar(req: Request, res: Response): Promise<Response>
+    atualizar(req: Request, res: Response): Promise<Response>
 }

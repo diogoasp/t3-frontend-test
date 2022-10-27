@@ -1,4 +1,3 @@
-import { ObjectId } from "mongodb";
 import { IProduto } from "./IProduto";
 
 export interface IRepository {
