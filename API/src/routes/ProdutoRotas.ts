@@ -3,11 +3,11 @@ import { produtoController } from "../controllers/MainController";
 
 export default function ProdutoRotas(app: Express){
     app.get("/produtos", (req: Request, res: Response) => {
-        return produtoController.todosProdutos(req, res);
+        return produtoController.todos(req, res);
     });
 
     app.get("/produto/:id", (req: Request, res: Response) => {
-        return produtoController.produtoPorId(req, res);
+        return produtoController.porId(req, res);
     });
 
     app.post("/produto", (req: Request, res: Response) => {

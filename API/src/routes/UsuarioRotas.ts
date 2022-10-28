@@ -1,23 +1,28 @@
 import { Express, Request, Response } from "express";
+import { usuarioController } from "../controllers/MainController";
 
 export default function UsuarioRotas(app: Express){
+    app.post("/login", (req: Request, res: Response) => {
+        return usuarioController.login(req, res);
+    });
+    
+    app.post("/cadastrar", (req: Request, res: Response) => {
+        return usuarioController.inserir(req, res);
+    });
+
     app.get("/usuarios", (req: Request, res: Response) => {
-        return ;
+        return usuarioController.todos(req, res);
     });
 
     app.get("/usuario/:id", (req: Request, res: Response) => {
-        return ;
-    });
-
-    app.post("/usuario", (req: Request, res: Response) => {
-        return ;
+        return usuarioController.porId(req, res);
     });
 
     app.patch("/usuario/:id", (req: Request, res: Response) => {
-        return ;
+        return usuarioController.atualizar(req, res);
     });
 
     app.delete("/usuario/:id", (req: Request, res: Response) => {
-        return ;
+        return usuarioController.deletar(req, res);
     });
 }

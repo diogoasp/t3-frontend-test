@@ -5,9 +5,9 @@ import Produto from "../models/Produto";
 
 export default class ProdutoController implements IController{
 
-    constructor(private repo: IRepository){}
+    constructor(private repo: IRepository<Produto>){}
     
-    async todosProdutos(req: Request, res: Response): Promise<Response> {
+    async todos(req: Request, res: Response): Promise<Response> {
         try {
           const data = await this.repo.getAll();
           return res.status(200).json({ produtos: data });
@@ -16,7 +16,7 @@ export default class ProdutoController implements IController{
         }
     }
 
-    async produtoPorId(req: Request, res: Response): Promise<Response> {
+    async porId(req: Request, res: Response): Promise<Response> {
         try {
             const data = await this.repo.getById(req.params.id);
             return res.status(200).json({ produto: data });
@@ -30,7 +30,7 @@ export default class ProdutoController implements IController{
           const {nome, descricao, valor} = req.body;
           const prod = new Produto(nome, descricao, valor);
           this.repo.save(prod);
-          return res.status(200).json({ mensagem: "Produto inserido com sucesso" });
+          return res.status(200).json({ status: "success", mensagem: "Produto inserido com sucesso" });
         } catch (error) {
           return res.status(400).json({ mensagem: "Erro inesperado. Bad resquest", error });
         }
@@ -42,7 +42,7 @@ export default class ProdutoController implements IController{
           
           console.log(data);
 
-          return res.status(200).json({ mensagem: "Produto removido!"});
+          return res.status(200).json({ status: "success", mensagem: "Produto removido!"});
         } catch (error) {
           return res.status(400).json({ mensagem: "Erro inesperado. Bad request", error })
         }
@@ -56,7 +56,7 @@ export default class ProdutoController implements IController{
 
           console.log(data);
 
-          return res.status(200).json({ mensagen: "Produto atualizado" });
+          return res.status(200).json({ status: "success", mensagen: "Produto atualizado" });
         } catch (error) {
           return res.status(400).json({ mensagem: "Erro inesperado. Bad request", error })
         }

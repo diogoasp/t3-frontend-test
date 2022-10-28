@@ -1,9 +1,8 @@
-import { IProduto } from "./IProduto";
-
-export interface IRepository {
-    getAll(): Promise<IProduto[]>
-    getById(id: string): Promise<IProduto>
-    save(produto: IProduto): Promise<void>
+export interface IRepository<T> {
+    getAll(): Promise<T[]>
+    getById(id: string): Promise<T | null>
+    save(object: T): Promise<void>
     delete(id: string): Promise<void>
-    update(id: string, produto: IProduto): Promise<void>
+    update(id: string, object: T): Promise<void>
+    getByName(name: string): Promise<T | null>
 }
