@@ -9,19 +9,15 @@ export default class ProdutoRepository implements IRepository<IProduto> {
     }
     
     async save(produto: IProduto): Promise<void> {
-        const data = await Produto.create(produto);
+        await Produto.create(produto);
     }
 
     async delete(id: string): Promise<void> {
-        const prod = await this.getById(id);
-        const data = await Produto.remove(prod);
-        console.log(data);
+        await Produto.findByIdAndDelete(id);
     }
 
     async update(id: string, produto: IProduto): Promise<void> {
-        let prod = await this.getById(id);
-        prod = produto;
-        const data = await Produto.updateOne(prod);
+        await Produto.findByIdAndUpdate(id, produto);
     }
     
     async getAll(): Promise<IProduto[]> {

@@ -1,9 +1,9 @@
 import { Express, Request, Response } from "express";
-import { usuarioController } from "../controllers/MainController";
+import { usuarioController, autenticacaoController } from "../controllers/MainController";
 
 export default function UsuarioRotas(app: Express){
     app.post("/login", (req: Request, res: Response) => {
-        return usuarioController.login(req, res);
+        return autenticacaoController.login(req, res);
     });
     
     app.post("/cadastrar", (req: Request, res: Response) => {

@@ -33,7 +33,7 @@ export default class UsuarioController implements IController{
 
           if(usuarioExiste) return res.status(400).json({ mensagem: "Usuario já existe" });
           
-          const usuario = new Usuario(nome, email, senha, 1);
+          const usuario = new Usuario(nome, email, senha);
           this.repo.save(usuario);
 
           return res.status(201).json({ status: "success", usuario:  usuario});
@@ -67,18 +67,4 @@ export default class UsuarioController implements IController{
           return res.status(400).json({ mensagem: "Erro inesperado. Bad resquest", erro: error });
         }
     }
-
-    async login(req: Request, res: Response): Promise<Response> {
-      const {email, senha} = req.body;
-
-      const usuarioExiste = await this.repo.getByName(email);
-
-      if(!usuarioExiste) return res.status(400).json({ mensagem: "Usuario ou senha inválido" });
-      if(usuarioExiste.senha !== senha) return res.status(400).json({ mensagem: "Usuario ou senha inválido" });
-
-      return res.status(200).json({ usuario: usuarioExiste });
-    }
-
-
-
 }

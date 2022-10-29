@@ -30,7 +30,7 @@ export default class ProdutoController implements IController{
           const {nome, descricao, valor} = req.body;
           const prod = new Produto(nome, descricao, valor);
           this.repo.save(prod);
-          return res.status(200).json({ status: "success", mensagem: "Produto inserido com sucesso" });
+          return res.status(201).json({ status: "success", mensagem: "Produto inserido com sucesso", prod });
         } catch (error) {
           return res.status(400).json({ mensagem: "Erro inesperado. Bad resquest", error });
         }
@@ -38,9 +38,7 @@ export default class ProdutoController implements IController{
 
     async deletar(req: Request, res: Response): Promise<Response> {
         try {
-          const data = await this.repo.delete(req.params.id);
-          
-          console.log(data);
+          await this.repo.delete(req.params.id);
 
           return res.status(200).json({ status: "success", mensagem: "Produto removido!"});
         } catch (error) {
@@ -54,9 +52,7 @@ export default class ProdutoController implements IController{
           const novoProduto = new Produto(nome, descricao, valor);
           const data = await this.repo.update(req.params.id, novoProduto);
 
-          console.log(data);
-
-          return res.status(200).json({ status: "success", mensagen: "Produto atualizado" });
+          return res.status(200).json({ status: "success", mensagen: "Produto atualizado", data });
         } catch (error) {
           return res.status(400).json({ mensagem: "Erro inesperado. Bad request", error })
         }

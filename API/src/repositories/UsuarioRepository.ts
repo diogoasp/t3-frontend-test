@@ -9,25 +9,19 @@ export default class UsuarioRepository implements IRepository<IUsuario> {
     }
     
     async save(usuario: IUsuario): Promise<void> {
-        const data = await Usuario.create(usuario);
+        await Usuario.create(usuario);
     }
 
     async delete(id: string): Promise<void> {
-        const prod = await this.getById(id);
-        const data = await Usuario.remove(prod);
-        console.log(data);
+        await Usuario.findByIdAndDelete(id);
     }
 
     async update(id: string, usuario: IUsuario): Promise<void> {
-        let prod = await this.getById(id);
-        prod = usuario;
-        const data = await Usuario.updateOne(prod);
-        console.log(data)
+        await Usuario.findByIdAndUpdate(id, usuario);
     }
     
     async getAll(): Promise<IUsuario[]> {
-        const usuario = await Usuario.find({});
-        return usuario
+        return await Usuario.find({});
     }
 
     async getById(id: string): Promise<IUsuario | null> {
