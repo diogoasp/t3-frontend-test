@@ -1,6 +1,6 @@
 export interface IUsuario {
-    _id: number;
-    email: string;
-    senha: string;
-    role: number;
+    _id: number | undefined;
+    email: string | undefined;
+    senha: string | undefined;
+    role: number | undefined;
 }
