@@ -1,4 +1,6 @@
 import React from 'react';
+import { Table } from 'react-bootstrap';
+import { BiCart, BiEditAlt, BiTrash } from 'react-icons/bi';
 import { Link } from "react-router-dom";
 import { IProdutoController } from '../interfaces/produtoController';
 import { IUsuario } from '../interfaces/usuario';
@@ -32,14 +34,17 @@ const ProductTable = ({ controller, user }: ProdutoProps) => {
 
 
   return (
-    <>
-      <table data-testid="productTable">
-        <tr>
-          <th> Nome </th>
-          <th> Descrição </th>
-          <th> Preço </th>
-          <th colSpan={2} > Ações </th>
-        </tr>
+    <div className='d-flex justify-content-center m-5'>
+      <Table striped bordered hover data-testid="productTable">
+        <thead>
+          <tr>
+            <th> Nome </th>
+            <th> Descrição </th>
+            <th> Preço </th>
+            <th colSpan={2} > Ações </th>
+          </tr>
+        </thead>
+        <tbody>
         {
           produtos.map((prod) => (
 
@@ -48,17 +53,18 @@ const ProductTable = ({ controller, user }: ProdutoProps) => {
               <td>{prod.descricao}</td>
               <td>{prod.valor}</td>
               {eAdmin() ?
-                < div >
-                  <td><Link to={{ pathname: `editar/${prod._id}` }}>Editar </Link></td>
-                  <td><button data-testid={prod._id + "-excluir"} onClick={deleteHandler(prod._id !== undefined ? prod._id : 0)} >excluir</button></td>
+                < div className='d-flex justify-content-center'>
+                  <td><Link className='btn-table' to={{ pathname: `editar/${prod._id}` }}><BiEditAlt/></Link></td>
+                  <td><button className='btn-table' data-testid={prod._id + "-excluir"} onClick={deleteHandler(prod._id !== undefined ? prod._id : 0)} ><BiTrash/></button></td>
                 </div>
-                : <td><button data-testid={prod._id + "-add"} onClick={deleteHandler(prod._id !== undefined ? prod._id : 0)} >Adicionar ao Carrinho</button></td>
+                : <td><button className='btn-table' data-testid={prod._id + "-add"} onClick={deleteHandler(prod._id !== undefined ? prod._id : 0)} ><BiCart/></button></td>
               }
             </tr>
           ))
         }
-      </table>
-    </>
+        </tbody>
+      </Table>
+    </div>
   )
 }
 

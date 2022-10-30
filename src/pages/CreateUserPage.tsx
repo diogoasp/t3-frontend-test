@@ -5,6 +5,7 @@ import MockUsuarioController from "../controller/MockUsuarioController";
 import MockUsuarioRepository from "../repository/MockUsuarioRepository";
 import Form from 'react-bootstrap/Form';
 import { IUsuario } from "../interfaces/usuario";
+import { Alert } from "react-bootstrap";
 
 const CreateUserPage = () => {
     const navigate = useNavigate();
@@ -26,7 +27,7 @@ const CreateUserPage = () => {
 
         evento.preventDefault();
         if (controller.setUsuario(email, senha)) {
-            navigate("/login", { state: { msg: 'Cadastro realizado com sucesso!' } });
+            navigate("/", { state: { stateMsg: 'Cadastro realizado com sucesso!' } });
         } else {
             msg = 'Email em uso!';
             setErroMsg(true);
@@ -36,21 +37,32 @@ const CreateUserPage = () => {
 
     return (
 
-        <div>
+        <div className="flex">
+        <div id="boxLogin">
+            <h1 className="mb-2">Cadastre-se</h1>
             {erroMsg ?
                 <div data-testid="erro">
-                    <p>{msg}</p>
+                    <Alert key="danger" variant="danger">
+                        Senhas não coincidem
+                    </Alert>
                 </div>
                 : null}
-            <form onSubmit={create}>
-                <label htmlFor="email">Email</label>
-                <input type="email" name="email" id="email" value={email} data-testid="email" onChange={(evento) => setEmail(evento.target.value)} />
-                <label htmlFor="senha">Senha</label>
-                <input type="password" name="senha" id="senha" data-testid="password" value={senha} onChange={(evento) => setSenha(evento.target.value)} />
-                <label htmlFor="senhaValidacao">Digite a senha novamente</label>
-                <input type="password" name="senhaValidacao" id="senhaValidacao" data-testid="password-validade" value={senhaValidacao} onChange={(evento) => setsenhaValidacao(evento.target.value)} />
-                <Button variant="primary" type="submit" data-testid="cadastrar">Enviar</Button>
-            </form>
+                <Form onSubmit={create}>
+                <Form.Group className="mb-2" controlId="formBasicEmail">
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control type="email" name="email" id="email" value={email} data-testid="email" onChange={(evento) => setEmail(evento.target.value)} />
+                </Form.Group>
+                <Form.Group className="mb-2" controlId="formBasicPassword">
+                    <Form.Label>Senha</Form.Label>
+                    <Form.Control type="password" name="senha" id="senha" data-testid="password" value={senha} onChange={(evento) => setSenha(evento.target.value)} />
+                </Form.Group>
+                <Form.Group className="mb-2" controlId="formBasicRepeatPassword">
+                    <Form.Label>Digite a senha novamente</Form.Label>
+                    <Form.Control type="password" name="senhaValidacao" id="senhaValidacao" data-testid="password-validade" value={senhaValidacao} onChange={(evento) => setsenhaValidacao(evento.target.value)} />
+                </Form.Group>
+                <Button className="mb-2" variant="dark" type="submit" data-testid="cadastrar">Enviar</Button>
+            </Form>
+        </div>
         </div>
     )
 }

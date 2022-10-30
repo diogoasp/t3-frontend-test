@@ -3,6 +3,7 @@ import React from 'react';
 import { Button, Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { IUsuario } from '../interfaces/usuario';
+import { BiStoreAlt } from "react-icons/bi";
 
 interface HeaderProps {
   user?: IUsuario | undefined;
@@ -37,13 +38,7 @@ const Header = ({ user }: HeaderProps) => {
         <Navbar bg="light" expand="sm">
           <Container>
             <Navbar.Brand href="#home">
-              <img
-                  alt=""
-                  src="/logo.svg"
-                  width="30"
-                  height="30"
-                  className="d-inline-block align-top"
-                />{' '}
+              <BiStoreAlt className='fs-1'/>
             </Navbar.Brand>
             <div className='justify-content-start'>
               <Button variant='dark' data-testid="produtos" onClick={produtos()} > Produtos </Button>
@@ -53,7 +48,7 @@ const Header = ({ user }: HeaderProps) => {
             <Navbar.Collapse className="justify-content-end">
               <Navbar.Text>
                 {hasUser() ? <span>Olá, {user?.email}</span> : null}
-                <Button variant='dark' data-testid="sair" onClick={toLogin()} >  {hasUser() ? <span className="danger">Sair</span> : <span>Entrar</span>} </Button>
+                {hasUser() ? <Button variant='danger' data-testid="sair" onClick={toLogin()} ><span>Sair</span></Button> : <Button variant='success' data-testid="sair" onClick={toLogin()} ><span>Entrar</span> </Button>}
               </Navbar.Text>
             </Navbar.Collapse>
           </Container>

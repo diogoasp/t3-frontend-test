@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Button, Form } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import MockProdutoController from "../controller/MockProdutoController";
 
@@ -29,23 +30,24 @@ const EditProdutoPage = () => {
     };
 
     return (
-        <div>
+        <div className='d-flex flex-column justify-content-center m-5 w-50 mx-auto'>
             <h2>Editar Produto</h2>
-            <form onSubmit={setOrUpdate}>
-                <div>
-                    <label htmlFor="nome">Nome</label>
-                    <input type="text" name="nome" placeholder={produto.nome} value={nome} onChange={(evento) => setNome(evento.target.value)} />
-                </div>
-                <div>
-                    <label htmlFor="descricao">Descrição</label>
-                    <input type="text" name="descricao" placeholder={produto.descricao} value={descricao} onChange={(evento) => setDescricao(evento.target.value)} />
-                </div>
-                <div>
-                    <label htmlFor="valor">Valor</label>
-                    <input type="text" name="valor" placeholder={produto.valor !== undefined ? produto.valor.toString() : "0"} value={valor} onChange={(evento) => setValor(evento.target.value)} />
-                </div>
-                <input type="submit" value="Enviar" />
-            </form>
+            
+            <Form onSubmit={setOrUpdate}>
+                <Form.Group className="mb-2" controlId="formBasicNome">
+                    <Form.Label>Nome</Form.Label>
+                    <Form.Control type="text" name="nome" placeholder={produto.nome} value={nome} onChange={(evento) => setNome(evento.target.value)} />
+                </Form.Group>
+                <Form.Group className="mb-2" controlId="formBasicDescription">
+                    <Form.Label>Descrição</Form.Label>
+                    <Form.Control type="text" name="descricao" placeholder={produto.descricao} value={descricao} onChange={(evento) => setDescricao(evento.target.value)} />
+                </Form.Group>
+                <Form.Group className="mb-2" controlId="formBasicCost">
+                    <Form.Label>Valor</Form.Label>
+                    <Form.Control type="text" name="valor" placeholder={produto.valor !== undefined ? produto.valor.toString() : "0"} value={valor} onChange={(evento) => setValor(evento.target.value)} />
+                </Form.Group>
+                <Button className="mb-2" variant="dark" type="submit">Enviar</Button>
+            </Form>
         </div>
     )
 }
