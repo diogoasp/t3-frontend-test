@@ -7,14 +7,14 @@ import MockUsuario from '../models/Usuario';
 import { IUsuario } from '../interfaces/usuario';
 
 test('There is a table ', () => {
-  const u: MockUsuario = new MockUsuario(1, "admin@gmail.com", "123", 0);
+  const u: MockUsuario = new MockUsuario({ _id: 1, email: "admin@gmail.com", senha: "123", role: 0 });
   render(<ProdutosPage user={u as IUsuario} />, { wrapper: MemoryRouter });
   const tableElement = screen.getByTestId("productTable");
   expect(tableElement).toBeInTheDocument();
 });
 
 test('can delete a product', async () => {
-  const u: MockUsuario = new MockUsuario(1, "admin@gmail.com", "123", 0);
+  const u: MockUsuario = new MockUsuario({ _id: 1, email: "admin@gmail.com", senha: "123", role: 0 });
   render(<ProdutosPage user={u as IUsuario} />, { wrapper: MemoryRouter });
   const firstLineElement = screen.getByTestId("1");
   const delButtonElement = screen.getByTestId("1-excluir");

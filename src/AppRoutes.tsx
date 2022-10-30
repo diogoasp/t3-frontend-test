@@ -10,7 +10,7 @@ const AppRoutes = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<LoginPage />} />
+                <Route path="/" element={<LoginPage stateMsg={undefined} />} />
                 <Route path="/novo" element={<CreateUserPage />} />
                 <Route path="/produtos" element={<ProdutosPage />} />
                 <Route path="/produtos/editar/:id" element={<EditProdutoPage />} />

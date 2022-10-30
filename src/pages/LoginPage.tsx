@@ -19,9 +19,10 @@ const LoginPage = ({ stateMsg }: loginProps) => {
     const [email, setEmail] = useState("");
     const [erroMsg, setErroMsg] = React.useState(false)
     const [notificationMsg, setnotificationMsg] = React.useState(false)
-    let msg = location.state.stateMsg;
+    // let msg = location.state.stateMsg;
 
-    msg !== undefined ? setnotificationMsg(true) : setnotificationMsg(false);
+    // msg !== undefined ? setnotificationMsg(true) : setnotificationMsg(false);
+    let msg = "";
     const login = (evento: React.FormEvent) => {
         const controller = new MockUsuarioController(new MockUsuarioRepository());
 
