@@ -48,7 +48,7 @@ const Header = ({ user }: HeaderProps) => {
             <Navbar.Collapse className="justify-content-end">
               <Navbar.Text>
                 {hasUser() ? <span>Olá, {user?.email}</span> : null}
-                <Button variant='dark' data-testid="sair" onClick={toLogin()} >  {hasUser() ? <span>Sair</span> : <span>Entrar</span>} </Button>
+                {hasUser() ? <Button variant='danger' data-testid="sair" onClick={toLogin()} ><span>Sair</span></Button> : <Button variant='success' data-testid="sair" onClick={toLogin()} ><span>Entrar</span> </Button>}
               </Navbar.Text>
             </Navbar.Collapse>
           </Container>
