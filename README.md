@@ -1,5 +1,7 @@
-# Getting Started with Create React App
+# Considerações
 
+## Projeto desenvolvido para um trabalho avaliado de Testes Automatizados
+#### Observação relevante: não há nenhum "Front-Ender" no grupo de desenvolvedores.
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

@@ -7,8 +7,7 @@ import ProductTable from './components/ProductTables';
 function App() {
   return (
     <div className="App">
-      <AppRoutes/>
-      {/* <ProductTable produtos={produtos} /> */}
+      <AppRoutes />
     </div>
   );
 }

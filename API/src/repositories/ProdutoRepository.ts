@@ -1,6 +1,7 @@
 import { IProduto } from "../interfaces/IProduto";
 import { IRepository } from "../interfaces/IRepository";
 import Produto from "../database/schemas/ProdutoTabela";
+import { ObjectId } from "mongodb";
 
 export default class ProdutoRepository implements IRepository<IProduto> {
     
@@ -8,8 +9,9 @@ export default class ProdutoRepository implements IRepository<IProduto> {
         return await Produto.findOne({name});
     }
     
-    async save(produto: IProduto): Promise<void> {
-        await Produto.create(produto);
+    async save(produto: IProduto): Promise<ObjectId> {
+        const data = await Produto.create(produto);
+        return data._id;
     }
 
     async delete(id: string): Promise<void> {

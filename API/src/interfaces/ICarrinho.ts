@@ -8,5 +8,5 @@ export interface ICarrinho {
     itens: Array<IItemCarrinho>;
     total: number;
 
-    calcularTotal(): number
+    calcularTotal(): void;
 }
