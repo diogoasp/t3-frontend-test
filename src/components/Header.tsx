@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Button, Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { IUsuario } from '../interfaces/usuario';
 
@@ -33,22 +34,30 @@ const Header = ({ user }: HeaderProps) => {
   return (
     <>
       <header>
-        <img src="" alt="logo" />
-        <ul>
-          <li>
-            <li><button data-testid="produtos" onClick={produtos()} > Produtos </button></li>
-          </li>
-          <li>
-            <li><button data-testid="carrinho" onClick={produtos()} > Carrinho </button></li>
-          </li>
-          <li>
-            <div>
-              {hasUser() ? <span>Olá, {user?.email}</span> : null}
-              <button data-testid="sair" onClick={toLogin()} >  {hasUser() ? <span>Sair</span> : <span>Entrar</span>} </button>
-
+        <Navbar bg="light" expand="sm">
+          <Container>
+            <Navbar.Brand href="#home">
+              <img
+                  alt=""
+                  src="/logo.svg"
+                  width="30"
+                  height="30"
+                  className="d-inline-block align-top"
+                />{' '}
+            </Navbar.Brand>
+            <div className='justify-content-start'>
+              <Button variant='dark' data-testid="produtos" onClick={produtos()} > Produtos </Button>
+              <Button variant='dark' data-testid="carrinho" onClick={produtos()} > Carrinho </Button>
             </div>
-          </li>
-        </ul>
+            <Navbar.Toggle/>
+            <Navbar.Collapse className="justify-content-end">
+              <Navbar.Text>
+                {hasUser() ? <span>Olá, {user?.email}</span> : null}
+                <Button variant='dark' data-testid="sair" onClick={toLogin()} >  {hasUser() ? <span className="danger">Sair</span> : <span>Entrar</span>} </Button>
+              </Navbar.Text>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
       </header>
     </>
   )

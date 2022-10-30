@@ -5,6 +5,7 @@ import MockUsuarioController from "../controller/MockUsuarioController";
 import MockUsuarioRepository from "../repository/MockUsuarioRepository";
 import Form from 'react-bootstrap/Form';
 import { IUsuario } from "../interfaces/usuario";
+import { Alert } from "react-bootstrap";
 
 interface loginProps {
     stateMsg: string | undefined;
@@ -39,10 +40,15 @@ const LoginPage = ({ stateMsg }: loginProps) => {
 
     return (
 
-        <div>
+        <div className="flex">
+        <div id="boxLogin">
+            <h1 className="mb-3">Login</h1>
             {erroMsg ?
                 <div data-testid="erro">
-                    <p>{msg}</p>
+                    {/* <p>{msg}</p> */}
+                    <Alert key="danger" variant="danger">
+                        Email ou senha incorretos!
+                    </Alert>
                 </div>
                 : null}
             {notificationMsg ?
@@ -50,14 +56,19 @@ const LoginPage = ({ stateMsg }: loginProps) => {
                     <p>{msg}</p>
                 </div>
                 : null}
-            <form onSubmit={login}>
-                <label htmlFor="email">Email</label>
-                <input type="email" name="email" id="email" value={email} data-testid="email" onChange={(evento) => setEmail(evento.target.value)} />
-                <label htmlFor="senha">Senha</label>
-                <input type="password" name="senha" id="senha" data-testid="password" value={senha} onChange={(evento) => setSenha(evento.target.value)} />
-                <Button variant="primary" type="submit" data-testid="login">Entrar</Button>
-            </form>
-            <span>Não possui uma conta? </span>  <Link to={{ pathname: `novo` }}>Cadastrar-se!</Link>
+            <Form onSubmit={login}>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control type="email" name="email" id="email" value={email} data-testid="email" onChange={(evento) => setEmail(evento.target.value)} />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Label>Senha</Form.Label>
+                    <Form.Control type="password" name="senha" id="senha" data-testid="password" value={senha} onChange={(evento) => setSenha(evento.target.value)} />
+                </Form.Group>
+                <Button className="mb-3" variant="dark" type="submit" data-testid="login">Entrar</Button>
+            </Form>
+            <span>Não possui uma conta? </span> <br></br> <Link className="btn btn-dark mt-3" to={{ pathname: `novo` }}>Cadastre-se!</Link>
+        </div>
         </div>
     )
 }
