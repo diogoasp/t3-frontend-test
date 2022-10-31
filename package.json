@@ -5,7 +5,7 @@
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
+    "@testing-library/user-event": "^14.4.3",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.0",
     "@types/react": "^18.0.22",
@@ -17,6 +17,9 @@
     "react-icons": "^4.6.0",
     "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",
+    "requests": "^0.3.0",
+    "selenium": "^2.20.0",
+    "selenium-webdriver": "^4.5.0",
     "typescript": "^4.8.4",
     "web-vitals": "^2.1.4"
   },
@@ -43,5 +46,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/testing-library__jest-dom": "^5.14.5",
+    "chromedriver": "^107.0.2",
+    "mocha": "^10.1.0"
   }
 }

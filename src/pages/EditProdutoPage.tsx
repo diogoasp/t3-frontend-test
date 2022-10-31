@@ -32,7 +32,7 @@ const EditProdutoPage = () => {
     return (
         <div className='d-flex flex-column justify-content-center m-5 w-50 mx-auto'>
             <h2>Editar Produto</h2>
-            
+
             <Form onSubmit={setOrUpdate}>
                 <Form.Group className="mb-2" controlId="formBasicNome">
                     <Form.Label>Nome</Form.Label>
@@ -46,7 +46,7 @@ const EditProdutoPage = () => {
                     <Form.Label>Valor</Form.Label>
                     <Form.Control type="text" name="valor" placeholder={produto.valor !== undefined ? produto.valor.toString() : "0"} value={valor} onChange={(evento) => setValor(evento.target.value)} />
                 </Form.Group>
-                <Button className="mb-2" variant="dark" type="submit">Enviar</Button>
+                <Button className="mb-2" variant="dark" type="submit" id='enviar'>Enviar</Button>
             </Form>
         </div>
     )

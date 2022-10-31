@@ -17,7 +17,9 @@ export default class MockUsuarioRepository implements IUsuarioRepository {
     }
 
     setUsuario(user: IUsuario): boolean {
-        return true;
+        if (user.email === this.usuarioDefault.email || user.email === this.usuarioComum.email)
+            return false;
+        else return true;
     }
 
 }

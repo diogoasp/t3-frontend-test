@@ -37,17 +37,17 @@ const Header = ({ user }: HeaderProps) => {
       <header>
         <Navbar bg="light" expand="sm">
           <Container>
-            <Navbar.Brand href="#home">
-              <BiStoreAlt className='fs-1'/>
+            <Navbar.Brand href="./produtos">
+              <BiStoreAlt className='fs-1' />
             </Navbar.Brand>
             <div className='justify-content-start'>
               <Button variant='dark' data-testid="produtos" onClick={produtos()} > Produtos </Button>
               <Button variant='dark' data-testid="carrinho" onClick={produtos()} > Carrinho </Button>
             </div>
-            <Navbar.Toggle/>
+            <Navbar.Toggle />
             <Navbar.Collapse className="justify-content-end">
               <Navbar.Text>
-                {hasUser() ? <span>Olá, {user?.email}</span> : null}
+                {hasUser() ? <span id='userName'>Olá, {user?.email}</span> : null}
                 {hasUser() ? <Button variant='danger' data-testid="sair" onClick={toLogin()} ><span>Sair</span></Button> : <Button variant='success' data-testid="sair" onClick={toLogin()} ><span>Entrar</span> </Button>}
               </Navbar.Text>
             </Navbar.Collapse>

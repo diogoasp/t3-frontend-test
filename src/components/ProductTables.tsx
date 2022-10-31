@@ -35,7 +35,7 @@ const ProductTable = ({ controller, user }: ProdutoProps) => {
 
   return (
     <div className='d-flex justify-content-center m-5'>
-      <Table striped bordered hover data-testid="productTable">
+      <Table striped bordered hover id="productTable">
         <thead>
           <tr>
             <th> Nome </th>
@@ -45,23 +45,23 @@ const ProductTable = ({ controller, user }: ProdutoProps) => {
           </tr>
         </thead>
         <tbody>
-        {
-          produtos.map((prod) => (
+          {
+            produtos.map((prod) => (
 
-            <tr key={prod._id} data-testid={prod._id}>
-              <td>{prod.nome}</td>
-              <td>{prod.descricao}</td>
-              <td>{prod.valor}</td>
-              {eAdmin() ?
-                < div className='d-flex justify-content-center'>
-                  <td><Link className='btn-table' to={{ pathname: `editar/${prod._id}` }}><BiEditAlt/></Link></td>
-                  <td><button className='btn-table' data-testid={prod._id + "-excluir"} onClick={deleteHandler(prod._id !== undefined ? prod._id : 0)} ><BiTrash/></button></td>
-                </div>
-                : <td><button className='btn-table' data-testid={prod._id + "-add"} onClick={deleteHandler(prod._id !== undefined ? prod._id : 0)} ><BiCart/></button></td>
-              }
-            </tr>
-          ))
-        }
+              <tr key={prod._id} id={prod._id + 'tr'}>
+                <td id={prod._id + '-nome'}>{prod.nome}</td>
+                <td id={prod._id + '-descricao'}>{prod.descricao}</td>
+                <td id={prod._id + '-valor'}>{prod.valor}</td>
+                {eAdmin() ?
+                  < div className='d-flex justify-content-center'>
+                    <td><Link className='btn-table' id={prod._id + "-editar"} to={{ pathname: `editar/${prod._id}` }}><BiEditAlt /></Link></td>
+                    <td><button className='btn-table' id={prod._id + "-excluir"} onClick={deleteHandler(prod._id !== undefined ? prod._id : 0)} ><BiTrash /></button></td>
+                  </div>
+                  : <td><button className='btn-table' id={prod._id + "-add"} onClick={deleteHandler(prod._id !== undefined ? prod._id : 0)} ><BiCart /></button></td>
+                }
+              </tr>
+            ))
+          }
         </tbody>
       </Table>
     </div>
