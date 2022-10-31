@@ -13,8 +13,8 @@ interface ProdutoProps {
 }
 
 const ProductTable = ({ produtos }: ProdutoProps) => {
+  
   const inserirNoCarrinho = async (id: string) => {
-    console.log(id)
     const resProduto = await buscarProduto(id);
     const item = {
       _id: "",
@@ -30,8 +30,8 @@ const ProductTable = ({ produtos }: ProdutoProps) => {
 
     
     let itens: IItemCarrinho[] = carrinho.itens;
-    
-    itens.push(respBuscaItem.data.data);
+
+    itens.push(respBuscaItem.data.item);
     await atualizarCarrinho(carrinho._id, itens);
     carrinho.itens = itens;
     localStorage.setItem("carrinho", JSON.stringify(carrinho));

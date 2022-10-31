@@ -44,7 +44,6 @@ export const atualizarCarrinho = async (id: string, data: IItemCarrinho[]) => {
     if(id == ""){
         // return api.post("/carrinho", data);
     }else{
-        console.log(data, id)
         return api.patch("/carrinho/"+id, data);
     }
 }
@@ -53,7 +52,7 @@ export const buscarProduto = async (id: string) => {
     return api.get("/produto/"+id);
 }
 
-export const itensNoCarrinho = async (id: string) => {
+export const getCarrinho = async (id: string) => {
     return api.get("/carrinho/"+id);
 }
 

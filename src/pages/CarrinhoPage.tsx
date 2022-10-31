@@ -3,16 +3,18 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import ProductTable from "../components/ProductTables";
 import Header from "../components/Header";
 import { IItemCarrinho } from "../interfaces/itemCarrinho";
-import { itensNoCarrinho } from "../services/Api";
+import { getCarrinho } from "../services/Api";
 import ItemCarrinho from "../components/ItemCarrinho";
 
 const CarrinhoPage = () => {
-    const [itens, setItens] = useState<IItemCarrinho[]>();
-    const { id } = useParams<string>();
+    // const [itens, setItens] = useState<IItemCarrinho[]>();
+    // const { id } = useParams<string>();
+    let carrinho = JSON.parse(localStorage.getItem("carrinho") ?? "");
 
     useEffect(() => {
-        itensNoCarrinho(id ?? "").then(response => setItens(response.data.carrinho.itens));
+        carrinho = JSON.parse(localStorage.getItem("carrinho") ?? "");
     }, []);
+
 
     
     const location = useLocation();
@@ -26,7 +28,7 @@ const CarrinhoPage = () => {
             header / menu
             <h2>Carrinho de compras</h2>
             {/* <Link to={{ pathname: `editar/` }}>Adicionar Produto</Link> */}
-            <ItemCarrinho itens={itens} />
+            <ItemCarrinho itens={carrinho.itens} />
         </div>
 
     )

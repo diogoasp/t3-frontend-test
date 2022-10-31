@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { IItemCarrinho } from '../interfaces/itemCarrinho';
 import { IProduto } from '../interfaces/produto';
 import { IUsuario } from '../interfaces/usuario';
-import { buscarProduto, deletarProduto, getItemCarrinho, itensNoCarrinho } from '../services/Api';
+import { buscarProduto, deletarProduto, getItemCarrinho } from '../services/Api';
 
 interface ItemCarrinhoProps {
   itens: IItemCarrinho[] | undefined;
@@ -12,14 +12,11 @@ interface ItemCarrinhoProps {
 
 const ItemCarrinho = ({ itens }: ItemCarrinhoProps) => {
   let listaItens: ItemCarrinhoProps[] = [];
+
+  useEffect(() => {
+    itens?.map(item => buscarProduto(String(item.produto) ?? "").then(resp => console.log(resp.data.nome)))
+}, []);
   
-  itens?.forEach((item) => {
-    getItemCarrinho(String(item) ?? "").then(response => {
-      listaItens.push(response.data.data);
-    })
-  })
-  
-  console.log(listaItens[1])
 
   const deletar = async (id: string) => {
     const response = await deletarProduto(id);
@@ -47,20 +44,17 @@ const ItemCarrinho = ({ itens }: ItemCarrinhoProps) => {
           <th colSpan={2} > Ações </th>
         </tr>
         {
-          
-          listaItens.map((item) => (
-            item.itens?.map((i) => (
-            <tr key={i._id} data-testid={i._id}>
-              <td>{i.produto?.nome}</td>
-              <td>{i.quantidade}</td>
-              <td>{i.valor}</td>
-                < div >
-                  {/* <td><Link to={{ pathname: `editar/${item._id}` }}>Editar </Link></td> */}
-                  <td><button data-testid={i._id + "-excluir"} onClick={deleteHandler(i._id !== undefined ? i._id : "")} >excluir</button></td>
-                </div>
-                {/* <td><button data-testid={prod._id + "-add"} onClick={deleteHandler(prod._id !== undefined ? prod._id : "")} >Adicionar ao Carrinho</button></td> */}
-            </tr>
-            ))
+          itens?.map((i) => (
+          <tr key={i._id} data-testid={i._id}>
+            <td>{String(i.produto)}</td>
+            <td>{i.quantidade}</td>
+            <td>{i.valor}</td>
+              < div >
+                {/* <td><Link to={{ pathname: `editar/${item._id}` }}>Editar </Link></td> */}
+                <td><button data-testid={i._id + "-excluir"} onClick={deleteHandler(i._id !== undefined ? i._id : "")} >Remover do carrinho</button></td>
+              </div>
+              {/* <td><button data-testid={prod._id + "-add"} onClick={deleteHandler(prod._id !== undefined ? prod._id : "")} >Adicionar ao Carrinho</button></td> */}
+          </tr>
           ))
         }
       </table>
