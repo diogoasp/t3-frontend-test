@@ -12,4 +12,6 @@ code {
     monospace;
 }
 
-
+#state {
+  right: 4em;
+}

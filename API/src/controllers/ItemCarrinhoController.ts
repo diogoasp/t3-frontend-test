@@ -37,9 +37,9 @@ export default class ItemCarrinhoController implements IController{
 
     async deletar(req: Request, res: Response): Promise<Response> {
         try {
-          await this.repo.delete(req.params.id);
+          const itemDeletado = await this.repo.delete(req.params.id);
 
-          return res.status(200).json({ status: "success", mensagem: "item removido do carrinho!"});
+          return res.status(200).json({ item: itemDeletado });
         } catch (error) {
           return res.status(400).json({ mensagem: "Erro inesperado. Bad request", error })
         }

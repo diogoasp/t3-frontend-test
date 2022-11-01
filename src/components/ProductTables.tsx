@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import { IItemCarrinho } from '../interfaces/itemCarrinho';
 import { IProduto } from '../interfaces/produto';
 import { IProdutoController } from '../interfaces/produtoController';
 import { IUsuario } from '../interfaces/usuario';
 import { adicionarItemCarrinho, atualizarCarrinho, buscarProduto, deletarProduto, getItemCarrinho } from '../services/Api';
-import { Table } from 'react-bootstrap';
-import { BiCart, BiEditAlt, BiTrash } from 'react-icons/bi';
+import { Table, Alert } from 'react-bootstrap';
+import { BiCart, BiEditAlt, BiLike, BiTrash } from 'react-icons/bi';
 
 interface ProdutoProps {
   produtos: IProduto[] | undefined;
@@ -15,6 +15,7 @@ interface ProdutoProps {
 }
 
 const ProductTable = ({ produtos }: ProdutoProps) => {
+  const [adicionado, setAdicionado] = useState("")
 
   const inserirNoCarrinho = async (id: string) => {
     const resProduto = await buscarProduto(id);
@@ -35,8 +36,8 @@ const ProductTable = ({ produtos }: ProdutoProps) => {
 
     itens.push(respBuscaItem.data.item);
     await atualizarCarrinho(carrinho._id, itens);
-    carrinho.itens = itens;
     localStorage.setItem("carrinho", JSON.stringify(carrinho));
+    setAdicionado(id);
   };
 
   const deletar = async (id: string) => {
@@ -92,7 +93,15 @@ const ProductTable = ({ produtos }: ProdutoProps) => {
                     <Link className='btn-table' id={prod._id + "-editar"} to={{ pathname: `editar/${prod._id}` }}><BiEditAlt /></Link>
                     <button className='btn-table' id={prod._id + "-excluir"} onClick={deleteHandler(prod._id !== undefined ? prod._id : "")} ><BiTrash /></button>
                   </td>
-                  : <td><button className='btn-table' id={prod._id + "-add"} onClick={carrinhoHandler(prod._id !== undefined ? prod._id : "")} ><BiCart /></button></td>
+                  : <td className='d-flex justify-content-center'><button className='btn-table' id={prod._id + "-add"} onClick={carrinhoHandler(prod._id !== undefined ? prod._id : "")} ><BiCart /></button>
+                    {adicionado == prod._id ?
+                      <div id="state" className='position-absolute'>
+                        <Alert key="success" variant="success" id="success" className='m-0 p-1' >
+                          <BiLike />
+                        </Alert>
+                      </div>
+                      : null}
+                  </td>
                 }
               </tr>
             ))

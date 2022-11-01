@@ -28,7 +28,7 @@ const Header = () => {
   }
   const carrinho = () => {
     return (event: React.MouseEvent) => {
-      navigate("/carrinho/"+cart._id, { state: { user: user } });
+      navigate("/carrinho/" + cart._id, { state: { user: user } });
       event.preventDefault();
     }
   }
@@ -41,14 +41,14 @@ const Header = () => {
   return (
     <>
       <header>
-        <Navbar bg="light" expand="sm">
+        <Navbar bg="light" expand="sm" className='mb-5'>
           <Container>
             <Navbar.Brand href="./produtos">
               <BiStoreAlt className='fs-1' />
             </Navbar.Brand>
             <div className='justify-content-start'>
-              <Button variant='dark' data-testid="produtos" onClick={produtos()} > Produtos </Button>
-              <Button variant='dark' data-testid="carrinho" onClick={carrinho()} > Carrinho </Button>
+              <Button variant='dark' id="produtos" onClick={produtos()} > Produtos </Button>
+              <Button variant='dark' id="carrinho" onClick={carrinho()} > Carrinho </Button>
             </div>
             <Navbar.Toggle />
             <Navbar.Collapse className="justify-content-end">

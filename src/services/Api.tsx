@@ -2,7 +2,7 @@ import axios from "axios";
 import { IItemCarrinho } from "../interfaces/itemCarrinho";
 import { IProduto } from "../interfaces/produto";
 
-export const api = axios.create({baseURL: "http://localhost:8081"});
+export const api = axios.create({baseURL: process.env.REACT_APP_BASE_URL});
 
 export const criarSessao = async (email: string, senha: string) => {
     return api.post("/login", {email, senha});
@@ -58,5 +58,10 @@ export const getCarrinho = async (id: string) => {
 
 export const getItemCarrinho = async (id: string) => {
     return api.get("/itemCarrinho/"+id);
+}
+
+export const deleteItemCarrinho = async (id: string) => {
+    console.log(id)
+    return api.delete("/itemCarrinho/"+id);
 }
 
