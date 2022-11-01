@@ -1,7 +1,7 @@
 import { BiPlusCircle } from "react-icons/bi";
 import ProductTable from "../components/ProductTables";
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import { IProduto } from "../interfaces/produto";
 import { produtosDisponiveis } from "../services/Api";

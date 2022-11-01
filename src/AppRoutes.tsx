@@ -1,6 +1,5 @@
-import { useContext } from "react";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
-import { ProvedorAutenticacao, ContextoAutenticacao, ContextoValores } from "./context/contextoAutenticacao";
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { ProvedorAutenticacao } from "./context/contextoAutenticacao";
 import CarrinhoPage from "./pages/CarrinhoPage";
 import CreateUserPage from "./pages/CreateUserPage";
 import EditProdutoPage from "./pages/EditProdutoPage";

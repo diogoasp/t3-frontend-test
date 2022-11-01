@@ -11,11 +11,6 @@ const Header = () => {
   // const forceUpdate = React.useReducer(() => ({}), {})[1] as () => void
   const user = JSON.parse(localStorage.getItem("usuario") ?? "")
   const cart = JSON.parse(localStorage.getItem("carrinho") ?? "")
-
-  const location = useLocation();
-  // const defUser = () => {
-  //   return user === undefined ? location.state.user : user;
-  // }
   const hasUser = () => {
     return user !== undefined;
   };
