@@ -1,27 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
+import React, { useEffect } from 'react';
 import { IItemCarrinho } from '../interfaces/itemCarrinho';
-import { IProduto } from '../interfaces/produto';
-import { IUsuario } from '../interfaces/usuario';
-import { buscarProduto, deletarProduto, getItemCarrinho } from '../services/Api';
+import { atualizarCarrinho, deleteItemCarrinho } from '../services/Api';
 
 interface ItemCarrinhoProps {
   itens: IItemCarrinho[] | undefined;
-  // user?: IUsuario | undefined;
 }
 
 const ItemCarrinho = ({ itens }: ItemCarrinhoProps) => {
-  const listaItens: ItemCarrinhoProps[] = []
-
-  useEffect(() => {
-    // itens?.map(item => buscarProduto(String(item.produto) ?? "").then(resp => console.log(resp.data.produto)))
-  }, []);
-  // itens?.map(item => getItemCarrinho(String(item._id)).then(response => console.log(response.data)))
-  
 
   const deletar = async (id: string) => {
-    const response = await deletarProduto(id);
+    let lista: IItemCarrinho[] = [];
+    itens?.map(item => {
+      if(item._id != id) lista.push(item);
+    })
+
+    const response = await deleteItemCarrinho(id);
+
     if (response.status == 200) {
+      let cart = JSON.parse(localStorage.getItem("carrinho") ?? "");
+      atualizarCarrinho(cart._id, lista);
+      cart.itens = lista;
+      localStorage.setItem("carrinho", JSON.stringify(cart));
+
       window.location.reload();
     } else {
       console.log("Falha na exclusão!");
