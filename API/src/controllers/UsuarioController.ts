@@ -27,16 +27,16 @@ export default class UsuarioController implements IController{
 
     async inserir(req: Request, res: Response): Promise<Response> {
         try {
-          const {nome, email, senha} = req.body;
+          const {email, senha} = req.body;
 
           const usuarioExiste = await this.repo.getByName(email);
 
           if(usuarioExiste) return res.status(400).json({ mensagem: "Usuario já existe" });
           
-          const usuario = new Usuario(nome, email, senha);
+          const usuario = new Usuario(email, senha);
           this.repo.save(usuario);
 
-          return res.status(201).json({ status: "success", usuario:  usuario});
+          return res.status(201).json({usuario});
         } catch (error) {
           return res.status(400).json({ mensagem: "Erro inesperado. Bad resquest", erro: error });
         }
@@ -56,8 +56,8 @@ export default class UsuarioController implements IController{
 
     async atualizar(req: Request, res: Response): Promise<Response> {
         try {
-          const {nome, descricao, valor} = req.body;
-          const novoUsuario = new Usuario(nome, descricao, valor);
+          const {email, senha} = req.body;
+          const novoUsuario = new Usuario(email, senha);
           const data = await this.repo.update(req.params.id, novoUsuario);
 
           console.log(data);

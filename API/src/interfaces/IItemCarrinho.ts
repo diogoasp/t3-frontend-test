@@ -5,6 +5,7 @@ export interface IItemCarrinho {
     _id: ObjectId | undefined;
     produto: IProduto;
     quantidade: number;
+    valor: number;
 
-    getValor(): number
+    setValor(): void;
 }

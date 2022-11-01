@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import ItemCarrinho from "../database/schemas/ItemCarrinhoTabela";
 import { IItemCarrinho } from "../interfaces/IItemCarrinho";
 import { IRepository } from "../interfaces/IRepository";
@@ -8,8 +9,9 @@ export default class ItemCarrinhoRepository implements IRepository<IItemCarrinho
         return null;
     }
     
-    async save(item: IItemCarrinho): Promise<void> {
-        await ItemCarrinho.create(item);
+    async save(item: IItemCarrinho): Promise<ObjectId> {
+        const data = await ItemCarrinho.create(item);
+        return data._id;
     }
 
     async delete(id: string): Promise<void> {
@@ -21,7 +23,7 @@ export default class ItemCarrinhoRepository implements IRepository<IItemCarrinho
     }
     
     async getAll(): Promise<IItemCarrinho[]> {
-        return [];
+        return await ItemCarrinho.find({});
     }
 
     async getById(id: string): Promise<IItemCarrinho | null> {

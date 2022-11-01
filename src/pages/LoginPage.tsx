@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, Link, useLocation, useNavigate } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
-import MockUsuarioController from "../controller/MockUsuarioController";
-import MockUsuarioRepository from "../repository/MockUsuarioRepository";
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import { IUsuario } from "../interfaces/usuario";
+import { ContextoAutenticacao } from "../context/contextoAutenticacao";
 import Form from 'react-bootstrap/Form';
 import { IUsuario } from "../interfaces/usuario";
 import { Alert } from "react-bootstrap";
@@ -15,28 +17,29 @@ interface loginProps {
 const LoginPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
+    const { login, usuario } = useContext(ContextoAutenticacao);
 
     const [senha, setSenha] = useState("");
     const [email, setEmail] = useState("");
-    const [erroMsg, setErroMsg] = React.useState(false)
+    const [erroMsg, setErroMsg] = useState(false)
+    const [notificationMsg, setnotificationMsg] = useState(false)
+    let msg;
+    let status: boolean;
 
-    let msg = "";
-    const login = (evento: React.FormEvent) => {
-        const controller = new MockUsuarioController(new MockUsuarioRepository());
-
+    const submit = (evento: React.FormEvent) => {
         evento.preventDefault();
-        if (email === "" || senha === "") {
-            return;
-        }
-        if (controller.loginUsuario(email, senha)) {
-            const u: IUsuario = controller.getUsuario(email);
-            navigate("/produtos", { state: { user: u } });
-        } else {
+
+        login(email, senha).then(() => status = true).catch(() => status = false);
+
+        if (status != true) {
             msg = 'Usuário ou senha incorretos!';
             setErroMsg(true);
+        } else {
+            console.log(usuario)
+            navigate("/produtos");
         }
 
-    };
+    }
 
     return (
 

@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import Usuario from "../database/schemas/UsuarioTabela";
 import { IRepository } from "../interfaces/IRepository";
 import { IUsuario } from "../interfaces/IUsuario";
@@ -8,8 +9,9 @@ export default class UsuarioRepository implements IRepository<IUsuario> {
         return await Usuario.findOne({email});
     }
     
-    async save(usuario: IUsuario): Promise<void> {
-        await Usuario.create(usuario);
+    async save(usuario: IUsuario): Promise<ObjectId> {
+        const data = await Usuario.create(usuario);
+        return data._id;
     }
 
     async delete(id: string): Promise<void> {

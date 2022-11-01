@@ -1,4 +1,10 @@
 import React from 'react';
+import { Link } from "react-router-dom";
+import { IItemCarrinho } from '../interfaces/itemCarrinho';
+import { IProduto } from '../interfaces/produto';
+import { IProdutoController } from '../interfaces/produtoController';
+import { IUsuario } from '../interfaces/usuario';
+import { adicionarItemCarrinho, atualizarCarrinho, buscarProduto, deletarProduto, getItemCarrinho } from '../services/Api';
 import { Table } from 'react-bootstrap';
 import { BiCart, BiEditAlt, BiTrash } from 'react-icons/bi';
 import { Link } from "react-router-dom";
@@ -6,30 +12,62 @@ import { IProdutoController } from '../interfaces/produtoController';
 import { IUsuario } from '../interfaces/usuario';
 
 interface ProdutoProps {
-  controller: IProdutoController;
-  user?: IUsuario | undefined;
+  produtos: IProduto[] | undefined;
+  // controller: IProdutoController;
+  // user?: IUsuario | undefined;
 }
 
-const ProductTable = ({ controller, user }: ProdutoProps) => {
-  // const navigate = useNavigate();
-  let produtos = controller.getAll();
-  const forceUpdate = React.useReducer(() => ({}), {})[1] as () => void
+const ProductTable = ({ produtos }: ProdutoProps) => {
 
-  const deletar = (id: number) => {
-    if (controller.deleteProduto(id)) {
-      forceUpdate();
+  const inserirNoCarrinho = async (id: string) => {
+    const resProduto = await buscarProduto(id);
+    const item = {
+      _id: "",
+      produto: resProduto.data.produto,
+      quantidade: 1,
+      valor: 0
+    }
+
+    let carrinho = JSON.parse(localStorage.getItem("carrinho") ?? "");
+
+    const resItem = await adicionarItemCarrinho("", item);
+    const respBuscaItem = await getItemCarrinho(resItem.data.id);
+
+
+    let itens: IItemCarrinho[] = carrinho.itens;
+
+    itens.push(respBuscaItem.data.item);
+    await atualizarCarrinho(carrinho._id, itens);
+    carrinho.itens = itens;
+    localStorage.setItem("carrinho", JSON.stringify(carrinho));
+  };
+
+  const deletar = async (id: string) => {
+    const response = await deletarProduto(id);
+    if (response.status == 200) {
+      window.location.reload();
     } else {
       console.log("Falha na exclusão!");
     }
   };
-  const deleteHandler = (id: number) => {
+
+  const deleteHandler = (id: string) => {
     return (event: React.MouseEvent) => {
       deletar(id);
       event.preventDefault();
     }
   }
+
+  const carrinhoHandler = (id: string) => {
+    return (event: React.MouseEvent) => {
+      inserirNoCarrinho(id);
+      event.preventDefault();
+    }
+  }
+
   const eAdmin = () => {
-    return user?.role === 0;
+    const usuario = JSON.parse(localStorage.getItem("usuario") ?? "");
+    return usuario?.permissao === 0;
   }
 
 
