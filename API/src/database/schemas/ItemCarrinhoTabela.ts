@@ -1,8 +1,8 @@
-import { model, Schema } from "mongoose";
+import { model, Schema, SchemaType } from "mongoose";
 import { IItemCarrinho } from "../../interfaces/IItemCarrinho";
 
 const itemCarrinhoEsquema = new Schema({
-    produto: {type: Schema.Types.ObjectId, require: true, ref: "produtos"},
+    produto: {type: Object, require: true, ref: "produtos"},
     quantidade: {type: Number},
     valor: {type: Number, default: 0}
 });

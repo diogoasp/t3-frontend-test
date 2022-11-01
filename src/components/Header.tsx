@@ -11,6 +11,7 @@ const Header = () => {
   const navigate = useNavigate();
   const forceUpdate = React.useReducer(() => ({}), {})[1] as () => void
   const user = JSON.parse(localStorage.getItem("usuario") ?? "")
+  const cart = JSON.parse(localStorage.getItem("carrinho") ?? "")
 
   const location = useLocation();
   const defUser = () => {
@@ -27,7 +28,7 @@ const Header = () => {
   }
   const carrinho = () => {
     return (event: React.MouseEvent) => {
-      navigate("/carrinho", { state: { user: user } });
+      navigate("/carrinho/"+cart._id, { state: { user: user } });
       event.preventDefault();
     }
   }

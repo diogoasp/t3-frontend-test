@@ -11,11 +11,12 @@ interface ItemCarrinhoProps {
 }
 
 const ItemCarrinho = ({ itens }: ItemCarrinhoProps) => {
-  let listaItens: ItemCarrinhoProps[] = [];
+  const listaItens: ItemCarrinhoProps[] = []
 
   useEffect(() => {
-    itens?.map(item => buscarProduto(String(item.produto) ?? "").then(resp => console.log(resp.data.nome)))
-}, []);
+    // itens?.map(item => buscarProduto(String(item.produto) ?? "").then(resp => console.log(resp.data.produto)))
+  }, []);
+  // itens?.map(item => getItemCarrinho(String(item._id)).then(response => console.log(response.data)))
   
 
   const deletar = async (id: string) => {
@@ -46,7 +47,7 @@ const ItemCarrinho = ({ itens }: ItemCarrinhoProps) => {
         {
           itens?.map((i) => (
           <tr key={i._id} data-testid={i._id}>
-            <td>{String(i.produto)}</td>
+            <td>{i.produto?.nome}</td>
             <td>{i.quantidade}</td>
             <td>{i.valor}</td>
               < div >

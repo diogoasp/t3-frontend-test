@@ -17,12 +17,9 @@ export default class AutenticacaoController {
         if(!usuarioExiste) return res.status(400).json({ mensagem: "Usuario ou senha inválido" });
 
         if(usuarioExiste.senha !== senha) return res.status(400).json({ mensagem: "Senha inválida" });
-
-        console.log(String(usuarioExiste._id));
         
         const carrinhoExiste = await this.repoCarrinho.getByName(String(usuarioExiste._id));
 
-        console.log(carrinhoExiste?._id)
         return res.status(200).json({ usuario: usuarioExiste, carrinho:  carrinhoExiste});
     }
 

@@ -33,7 +33,7 @@ const AppRoutes = () => {
                     <Route path="/produtos" element={<ProdutosPage />} />
                     <Route path="/produtos/editar/:id" element={<EditProdutoPage />} />
                     <Route path="/produtos/editar/" element={<EditProdutoPage />} />
-                    <Route path="/carrinho/" element={<CarrinhoPage />} />
+                    <Route path="/carrinho/:id" element={<CarrinhoPage />} />
                 </Routes>
             </ProvedorAutenticacao>
         </BrowserRouter>
