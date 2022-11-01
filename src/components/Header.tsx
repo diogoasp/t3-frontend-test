@@ -1,7 +1,7 @@
 
 import React, { useContext } from 'react';
 import { Button, Container, Navbar } from 'react-bootstrap';
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { BiStoreAlt } from "react-icons/bi";
 import { ContextoAutenticacao } from '../context/contextoAutenticacao';
 
