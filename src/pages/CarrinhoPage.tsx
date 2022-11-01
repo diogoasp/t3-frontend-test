@@ -20,7 +20,7 @@ const CarrinhoPage = () => {
             <Header />
             <h2>Carrinho de compras</h2>
             <ItemCarrinho itens={carrinho?.itens} />
-            <p><b>Total {carrinho?.total?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</b></p>
+            <p><b>Total <span id="value">{carrinho?.total?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span></b></p>
         </div>
 
     )

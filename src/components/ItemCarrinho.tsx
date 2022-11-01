@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IItemCarrinho } from '../interfaces/itemCarrinho';
 import { atualizarCarrinho, deleteItemCarrinho } from '../services/Api';
+import { Table } from 'react-bootstrap';
+import { BiTrash } from 'react-icons/bi';
 
 interface ItemCarrinhoProps {
   itens: IItemCarrinho[] | undefined;
@@ -11,7 +13,7 @@ const ItemCarrinho = ({ itens }: ItemCarrinhoProps) => {
   const deletar = async (id: string) => {
     let lista: IItemCarrinho[] = [];
     itens?.map(item => {
-      if(item._id != id) lista.push(item);
+      if (item._id != id) lista.push(item);
     })
 
     const response = await deleteItemCarrinho(id);
@@ -37,28 +39,32 @@ const ItemCarrinho = ({ itens }: ItemCarrinhoProps) => {
 
   return (
     <>
-      <table data-testid="productTable">
-        <tr>
-          <th> Nome do Produto </th>
-          <th> Quantidade </th>
-          <th> Valor </th>
-          <th colSpan={2} > Ações </th>
-        </tr>
-        {
-          itens?.map((i) => (
-          <tr key={i._id} data-testid={i._id}>
-            <td>{i.produto?.nome}</td>
-            <td>{i.quantidade}</td>
-            <td>{i.valor}</td>
-              < div >
-                {/* <td><Link to={{ pathname: `editar/${item._id}` }}>Editar </Link></td> */}
-                <td><button data-testid={i._id + "-excluir"} onClick={deleteHandler(i._id !== undefined ? i._id : "")} >Remover do carrinho</button></td>
-              </div>
-              {/* <td><button data-testid={prod._id + "-add"} onClick={deleteHandler(prod._id !== undefined ? prod._id : "")} >Adicionar ao Carrinho</button></td> */}
-          </tr>
-          ))
-        }
-      </table>
+      <div className='d-flex justify-content-center m-5'>
+        <Table striped bordered hover id="carrinhoTable">
+          <thead>
+            <tr>
+              <th> Nome do Produto </th>
+              <th> Quantidade </th>
+              <th> Valor </th>
+              <th colSpan={2} > Ações </th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              itens?.map((i) => (
+                <tr key={i._id} id={i._id}>
+                  <td>{i.produto?.nome}</td>
+                  <td>{i.quantidade}</td>
+                  <td>{i.valor}</td>
+                  < td >
+                    <button id={i._id + "-excluir"} onClick={deleteHandler(i._id !== undefined ? i._id : "")} className='btn-table' ><BiTrash /></button>
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </Table>
+      </div>
     </>
   )
 }
