@@ -13,6 +13,7 @@ const CarrinhoPage = () => {
         getCarrinho(String(cart._id)).then(response => setCarrinho(response.data.carrinho))
     }, []);
 
+
     const location = useLocation();
     return (
         <div>

@@ -35,7 +35,6 @@ const ProductTable = ({ produtos }: ProdutoProps) => {
 
     itens.push(respBuscaItem.data.item);
     await atualizarCarrinho(carrinho._id, itens);
-    carrinho.itens = itens;
     localStorage.setItem("carrinho", JSON.stringify(carrinho));
   };
 
