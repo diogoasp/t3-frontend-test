@@ -30,10 +30,7 @@ describe('cadastroTests', function() {
     await driver.findElement(By.id("senha")).sendKeys("123")
     await driver.findElement(By.id("senhaValidacao")).sendKeys("123")
     await driver.findElement(By.id("cadastrar")).click()
-    {
-      const elements = await driver.findElements(By.id("erro"))
-      assert(elements.length)
-    }
+    await driver.wait(until.elementLocated(By.id("erro")), 30000)
     assert(await driver.findElement(By.id("msg")).getText() == "Email em uso!")
   })
   it('cadastroPasswordWrong', async function() {
@@ -53,19 +50,13 @@ describe('cadastroTests', function() {
   it('cadastroSuccess', async function() {
     await driver.get("http://localhost:3000/novo")
     await driver.findElement(By.id("email")).click()
-    await driver.findElement(By.id("email")).sendKeys("a@a.com")
+    let r = (Math.random() + 1).toString(36).substring(7);
+    await driver.findElement(By.id("email")).sendKeys(r+"@"+r+".com")
     await driver.findElement(By.id("senha")).click()
     await driver.findElement(By.id("senha")).sendKeys("123")
     await driver.findElement(By.id("senhaValidacao")).sendKeys("123")
     await driver.findElement(By.id("cadastrar")).click()
-    {
-      const elements = await driver.findElements(By.id("erro"))
-      assert(!elements.length)
-    }
-    {
-      const elements = await driver.findElements(By.id("success"))
-      assert(elements.length)
-    }
+    await driver.wait(until.elementLocated(By.id("success")), 30000)
   })
 
 })

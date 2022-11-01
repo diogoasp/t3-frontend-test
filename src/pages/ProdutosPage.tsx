@@ -18,7 +18,7 @@ const ProdutosPage = () => {
         <div>
             <Header />
             <h2 id='titulo'>Lista de Produtos Cadastrados</h2>
-            <Link className="btn btn-success" to={{ pathname: `editar/` }}> <BiPlusCircle className="fs-5 m-2" />Adicionar Produto</Link>
+            <Link className="btn btn-success" to={{ pathname: `editar/` }} id='adicionar'> <BiPlusCircle className="fs-5 m-2" />Adicionar Produto</Link>
             <ProductTable produtos={prods} />
         </div>
 

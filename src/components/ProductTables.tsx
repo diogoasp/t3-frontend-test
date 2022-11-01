@@ -84,14 +84,14 @@ const ProductTable = ({ produtos }: ProdutoProps) => {
             produtos?.map((prod) => (
 
               <tr key={prod._id} id={prod._id + 'tr'}>
-                <td id={prod._id + '-nome'}>{prod.nome}</td>
+                <td id={prod._id + '-nome'} className="td-nome">{prod.nome}</td>
                 <td id={prod._id + '-descricao'}>{prod.descricao}</td>
                 <td id={prod._id + '-valor'}>{prod.valor}</td>
                 {eAdmin() ?
-                  < div className='d-flex justify-content-center'>
-                    <td><Link className='btn-table' id={prod._id + "-editar"} to={{ pathname: `editar/${prod._id}` }}><BiEditAlt /></Link></td>
-                    <td><button className='btn-table' id={prod._id + "-excluir"} onClick={deleteHandler(prod._id !== undefined ? prod._id : "")} ><BiTrash /></button></td>
-                  </div>
+                  < td className='d-flex justify-content-center'>
+                    <Link className='btn-table' id={prod._id + "-editar"} to={{ pathname: `editar/${prod._id}` }}><BiEditAlt /></Link>
+                    <button className='btn-table' id={prod._id + "-excluir"} onClick={deleteHandler(prod._id !== undefined ? prod._id : "")} ><BiTrash /></button>
+                  </td>
                   : <td><button className='btn-table' id={prod._id + "-add"} onClick={carrinhoHandler(prod._id !== undefined ? prod._id : "")} ><BiCart /></button></td>
                 }
               </tr>
