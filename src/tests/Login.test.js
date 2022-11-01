@@ -22,10 +22,7 @@ describe('LoginTests', function() {
     await driver.findElement(By.id("senha")).click()
     await driver.findElement(By.id("senha")).sendKeys("123")
     await driver.findElement(By.id("login")).click()
-    {
-      const elements = await driver.findElements(By.id("erro"))
-      assert(elements.length)
-    }
+    await driver.wait(until.elementLocated(By.id("erro")), 30000)
   })
 
   it('LoginTestSuccess', async function() {
@@ -34,10 +31,7 @@ describe('LoginTests', function() {
     await driver.findElement(By.id("senha")).click()
     await driver.findElement(By.id("senha")).sendKeys("123")
     await driver.findElement(By.id("login")).click()
-    {
-      const elements = await driver.findElements(By.id("userName"))
-      assert(elements.length)
-    }
+    await driver.wait(until.elementLocated(By.id("userName")), 30000)
     assert(await driver.findElement(By.id("userName")).getText() == "Olá, admin@gmail.com")
   })
 })

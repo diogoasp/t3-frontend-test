@@ -1,42 +1,22 @@
-import React, { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
-import MockUsuarioController from "../controller/MockUsuarioController";
-import MockUsuarioRepository from "../repository/MockUsuarioRepository";
+import { ContextoAutenticacao } from "../context/contextoAutenticacao";
 import Form from 'react-bootstrap/Form';
-import { IUsuario } from "../interfaces/usuario";
 import { Alert } from "react-bootstrap";
 
-interface loginProps {
-    stateMsg: string | undefined;
-}
-
-
 const LoginPage = () => {
-    const navigate = useNavigate();
-    const location = useLocation();
+    const { login, usuario } = useContext(ContextoAutenticacao);
 
     const [senha, setSenha] = useState("");
     const [email, setEmail] = useState("");
-    const [erroMsg, setErroMsg] = React.useState(false)
+    const [erroMsg, setErroMsg] = useState(false)
 
-    let msg = "";
-    const login = (evento: React.FormEvent) => {
-        const controller = new MockUsuarioController(new MockUsuarioRepository());
-
+    const submit = (evento: React.FormEvent) => {
         evento.preventDefault();
-        if (email === "" || senha === "") {
-            return;
-        }
-        if (controller.loginUsuario(email, senha)) {
-            const u: IUsuario = controller.getUsuario(email);
-            navigate("/produtos", { state: { user: u } });
-        } else {
-            msg = 'Usuário ou senha incorretos!';
-            setErroMsg(true);
-        }
 
-    };
+        login(email, senha).then().catch(() => setErroMsg(true));
+    }
 
     return (
 
@@ -45,13 +25,12 @@ const LoginPage = () => {
                 <h1 className="mb-2">Login</h1>
                 {erroMsg ?
                     <div data-testid="erro">
-                        {/* <p>{msg}</p> */}
                         <Alert key="danger" variant="danger" id="erro">
                             Email ou senha incorretos!
                         </Alert>
                     </div>
                     : null}
-                <Form onSubmit={login}>
+                <Form onSubmit={submit}>
                     <Form.Group className="mb-2" controlId="formBasicEmail">
                         <Form.Label>Email</Form.Label>
                         <Form.Control type="email" name="email" id="email" value={email} data-testid="email" onChange={(evento) => setEmail(evento.target.value)} />

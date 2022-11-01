@@ -6,23 +6,19 @@ import { IUsuario } from "../interfaces/IUsuario";
 export default class Carrinho implements ICarrinho {
     _id: ObjectId | undefined;
     usuario: IUsuario;
-    itens: IItemCarrinho[] = [];
+    itens: IItemCarrinho[];
     total: number = 0;
 
-    constructor(usuario: IUsuario, itens: IItemCarrinho[], id?: ObjectId) {
+    constructor(usuario: IUsuario, itens: IItemCarrinho[] = [], id?: ObjectId) {
         this.usuario = usuario;
         this.itens = itens;
-        this.total = this.calcularTotal();
+        this.calcularTotal();
         this._id = id ?? undefined;
     }
 
-    public calcularTotal(): number{
-        let soma = 0;
-        if(this.itens == undefined || this.itens.length == 0) return soma;
+    public calcularTotal() {
         this.itens.forEach((elemento) => {
-            soma += elemento.getValor();
+            this.total += elemento.valor ?? 0;
         });
-
-        return soma;
     }
 }

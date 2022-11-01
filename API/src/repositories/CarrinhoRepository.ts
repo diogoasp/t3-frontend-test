@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import Carrinho from "../database/schemas/CarrinhoTabela";
 import { ICarrinho } from "../interfaces/ICarrinho";
 import { IRepository } from "../interfaces/IRepository";
@@ -5,11 +6,12 @@ import { IRepository } from "../interfaces/IRepository";
 export default class CarrinhoRepository implements IRepository<ICarrinho> {
     
     async getByName(idUsuario: string): Promise<ICarrinho | null> {
-        return await Carrinho.findOne({idUsuario});
+        return await Carrinho.findOne({usuario: idUsuario});
     }
     
-    async save(carrinho: ICarrinho): Promise<void> {
-        await Carrinho.create(carrinho);
+    async save(carrinho: ICarrinho): Promise<ObjectId> {
+        const data = await Carrinho.create(carrinho);
+        return data._id;
     }
 
     async delete(id: string): Promise<void> {
@@ -21,7 +23,7 @@ export default class CarrinhoRepository implements IRepository<ICarrinho> {
     }
     
     async getAll(): Promise<ICarrinho[]> {
-        return [];
+        return await Carrinho.find({});
     }
 
     async getById(id: string): Promise<ICarrinho | null> {

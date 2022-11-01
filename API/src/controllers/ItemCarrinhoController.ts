@@ -14,8 +14,8 @@ export default class ItemCarrinhoController implements IController{
 
     async porId(req: Request, res: Response): Promise<Response> {
       try {
-          const data = await this.repo.getById(req.params.id);
-          return res.status(200).json({ item: data });
+          const item = await this.repo.getById(req.params.id);
+          return res.status(200).json({ item });
         } catch (error) {
           return res.status(400).json({ mensagem: "Erro inesperado. Bad resquest", error });  
         }
@@ -25,11 +25,11 @@ export default class ItemCarrinhoController implements IController{
       try {
         const {produto, quantidade} = req.body;
 
-        const item = new ItemCarrinho(produto, quantidade);
+        const item = new ItemCarrinho(produto, quantidade, 0);
         
-        this.repo.save(item);
+        const id = await this.repo.save(item);
 
-        return res.status(201).json({ status: "success", mensagem: "ItemCarrinho inserido com sucesso", item: item });
+        return res.status(200).json({ id });
       } catch (error) {
         return res.status(400).json({ mensagem: "Erro inesperado. Bad resquest", error });
       }
@@ -49,11 +49,11 @@ export default class ItemCarrinhoController implements IController{
         try {
           const {produto, quantidade} = req.body;
 
-          const novoItem = new ItemCarrinho(produto, quantidade);
+          const novoItem = new ItemCarrinho(produto, quantidade, 0);
 
           const itemAtualizado = await this.repo.update(req.params.id, novoItem);
 
-          return res.status(200).json({ status: "success", mensagen: "Item atualizado", item: itemAtualizado });
+          return res.status(200).json({ itemAtualizado });
         } catch (error) {
           return res.status(400).json({ mensagem: "Erro inesperado. Bad request", error })
         }

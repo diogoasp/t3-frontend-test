@@ -7,7 +7,7 @@ export default function UsuarioRotas(app: Express){
     });
     
     app.post("/cadastrar", (req: Request, res: Response) => {
-        return usuarioController.inserir(req, res);
+        return autenticacaoController.cadastrar(req, res);
     });
 
     app.get("/usuarios", (req: Request, res: Response) => {

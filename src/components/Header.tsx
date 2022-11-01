@@ -1,17 +1,17 @@
 
-import React from 'react';
+import React, { useContext } from 'react';
 import { Button, Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { IUsuario } from '../interfaces/usuario';
 import { BiStoreAlt } from "react-icons/bi";
+import { ContextoAutenticacao } from '../context/contextoAutenticacao';
 
-interface HeaderProps {
-  user?: IUsuario | undefined;
-}
-
-const Header = ({ user }: HeaderProps) => {
+const Header = () => {
+  const { logout } = useContext(ContextoAutenticacao);
   const navigate = useNavigate();
   const forceUpdate = React.useReducer(() => ({}), {})[1] as () => void
+  const user = JSON.parse(localStorage.getItem("usuario") ?? "")
+  const cart = JSON.parse(localStorage.getItem("carrinho") ?? "")
 
   const location = useLocation();
   const defUser = () => {
@@ -23,6 +23,12 @@ const Header = ({ user }: HeaderProps) => {
   const produtos = () => {
     return (event: React.MouseEvent) => {
       navigate("/produtos", { state: { user: user } });
+      event.preventDefault();
+    }
+  }
+  const carrinho = () => {
+    return (event: React.MouseEvent) => {
+      navigate("/carrinho/"+cart._id, { state: { user: user } });
       event.preventDefault();
     }
   }
@@ -42,13 +48,13 @@ const Header = ({ user }: HeaderProps) => {
             </Navbar.Brand>
             <div className='justify-content-start'>
               <Button variant='dark' data-testid="produtos" onClick={produtos()} > Produtos </Button>
-              <Button variant='dark' data-testid="carrinho" onClick={produtos()} > Carrinho </Button>
+              <Button variant='dark' data-testid="carrinho" onClick={carrinho()} > Carrinho </Button>
             </div>
             <Navbar.Toggle />
             <Navbar.Collapse className="justify-content-end">
               <Navbar.Text>
                 {hasUser() ? <span id='userName'>Olá, {user?.email}</span> : null}
-                {hasUser() ? <Button variant='danger' data-testid="sair" onClick={toLogin()} ><span>Sair</span></Button> : <Button variant='success' data-testid="sair" onClick={toLogin()} ><span>Entrar</span> </Button>}
+                {hasUser() ? <Button variant='danger' data-testid="sair" onClick={logout} ><span>Sair</span></Button> : <Button variant='success' data-testid="sair" onClick={toLogin()} ><span>Entrar</span> </Button>}
               </Navbar.Text>
             </Navbar.Collapse>
           </Container>
