@@ -67,7 +67,9 @@ export const ProvedorAutenticacao = ({ children }: props) => {
         localStorage.removeItem("usuario");
         localStorage.removeItem("carrinho");
         const limparUsuario = { _id: "", email: "", senha: "", role: 1 }
+        const limparCarrinho = { _id: "", usuario: { _id: "", email: "", senha: "", role: 1 }, itens: [], total: 0 }
         setUsuario(limparUsuario);
+        setCarrinho(limparCarrinho);
         navigate("/")
     }
 

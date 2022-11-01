@@ -6,7 +6,7 @@ import { IRepository } from "../interfaces/IRepository";
 export default class CarrinhoRepository implements IRepository<ICarrinho> {
     
     async getByName(idUsuario: string): Promise<ICarrinho | null> {
-        return await Carrinho.findOne({idUsuario});
+        return await Carrinho.findOne({usuario: idUsuario});
     }
     
     async save(carrinho: ICarrinho): Promise<ObjectId> {

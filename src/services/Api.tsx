@@ -42,7 +42,7 @@ export const adicionarItemCarrinho = async (id: string, data: IItemCarrinho) => 
 
 export const atualizarCarrinho = async (id: string, data: IItemCarrinho[]) => {
     if(id == ""){
-        // return api.post("/carrinho", data);
+        return api.post("/carrinho", data);
     }else{
         return api.patch("/carrinho/"+id, data);
     }
