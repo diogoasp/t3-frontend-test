@@ -2,16 +2,12 @@ import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import { IItemCarrinho } from '../interfaces/itemCarrinho';
 import { IProduto } from '../interfaces/produto';
-import { IProdutoController } from '../interfaces/produtoController';
-import { IUsuario } from '../interfaces/usuario';
 import { adicionarItemCarrinho, atualizarCarrinho, buscarProduto, deletarProduto, getItemCarrinho } from '../services/Api';
 import { Table, Alert } from 'react-bootstrap';
 import { BiCart, BiEditAlt, BiLike, BiTrash } from 'react-icons/bi';
 
 interface ProdutoProps {
   produtos: IProduto[] | undefined;
-  // controller: IProdutoController;
-  // user?: IUsuario | undefined;
 }
 
 const ProductTable = ({ produtos }: ProdutoProps) => {
@@ -42,7 +38,7 @@ const ProductTable = ({ produtos }: ProdutoProps) => {
 
   const deletar = async (id: string) => {
     const response = await deletarProduto(id);
-    if (response.status == 200) {
+    if (response.status === 200) {
       window.location.reload();
     } else {
       console.log("Falha na exclusão!");
@@ -94,7 +90,7 @@ const ProductTable = ({ produtos }: ProdutoProps) => {
                     <button className='btn-table' id={prod._id + "-excluir"} onClick={deleteHandler(prod._id !== undefined ? prod._id : "")} ><BiTrash /></button>
                   </td>
                   : <td className='d-flex justify-content-center'><button className='btn-table' id={prod._id + "-add"} onClick={carrinhoHandler(prod._id !== undefined ? prod._id : "")} ><BiCart /></button>
-                    {adicionado == prod._id ?
+                    {adicionado === prod._id ?
                       <div id="state" className='position-absolute'>
                         <Alert key="success" variant="success" id="success" className='m-0 p-1' >
                           <BiLike />

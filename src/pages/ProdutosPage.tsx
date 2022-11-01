@@ -17,8 +17,6 @@ const ProdutosPage = () => {
         const usuario = JSON.parse(localStorage.getItem("usuario") ?? "");
         return usuario?.permissao === 0;
     }
-
-    const location = useLocation();
     return (
         <div>
             <Header />

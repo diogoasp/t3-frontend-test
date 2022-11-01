@@ -15,7 +15,7 @@ const EditProdutoPage = () => {
     const [valor, setValor] = useState("");
 
     useEffect(() => {
-        if (id != undefined) buscarProduto(id ?? undefined).then(response => setProduto(response.data.produto));
+        if (id !== undefined) buscarProduto(id ?? undefined).then(response => setProduto(response.data.produto));
     }, [id]);
 
 

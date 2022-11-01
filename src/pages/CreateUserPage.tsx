@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Alert } from "react-bootstrap";
@@ -7,7 +7,7 @@ import { ContextoAutenticacao } from "../context/contextoAutenticacao";
 
 
 const CreateUserPage = () => {
-    const { cadastro, usuario } = useContext(ContextoAutenticacao);
+    const { cadastro } = useContext(ContextoAutenticacao);
     const [senha, setSenha] = useState("");
     const [senhaValidacao, setsenhaValidacao] = useState("");
     const [email, setEmail] = useState("");

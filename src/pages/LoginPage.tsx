@@ -6,7 +6,7 @@ import Form from 'react-bootstrap/Form';
 import { Alert } from "react-bootstrap";
 
 const LoginPage = () => {
-    const { login, usuario } = useContext(ContextoAutenticacao);
+    const { login } = useContext(ContextoAutenticacao);
 
     const [senha, setSenha] = useState("");
     const [email, setEmail] = useState("");

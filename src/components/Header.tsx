@@ -1,22 +1,21 @@
 
 import React, { useContext } from 'react';
-import { Button, Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { IUsuario } from '../interfaces/usuario';
+import { Button, Container, Navbar } from 'react-bootstrap';
+import { useLocation, useNavigate } from "react-router-dom";
 import { BiStoreAlt } from "react-icons/bi";
 import { ContextoAutenticacao } from '../context/contextoAutenticacao';
 
 const Header = () => {
   const { logout } = useContext(ContextoAutenticacao);
   const navigate = useNavigate();
-  const forceUpdate = React.useReducer(() => ({}), {})[1] as () => void
+  // const forceUpdate = React.useReducer(() => ({}), {})[1] as () => void
   const user = JSON.parse(localStorage.getItem("usuario") ?? "")
   const cart = JSON.parse(localStorage.getItem("carrinho") ?? "")
 
   const location = useLocation();
-  const defUser = () => {
-    return user === undefined ? location.state.user : user;
-  }
+  // const defUser = () => {
+  //   return user === undefined ? location.state.user : user;
+  // }
   const hasUser = () => {
     return user !== undefined;
   };
