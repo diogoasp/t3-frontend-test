@@ -12,9 +12,6 @@ const CarrinhoPage = () => {
         const cart = JSON.parse(localStorage.getItem("carrinho") ?? "");
         getCarrinho(String(cart._id)).then(response => setCarrinho(response.data.carrinho))
     }, []);
-
-
-    const location = useLocation();
     return (
         <div>
             <Header />

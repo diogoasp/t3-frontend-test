@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import { IItemCarrinho } from '../interfaces/itemCarrinho';
 import { atualizarCarrinho, deleteItemCarrinho } from '../services/Api';
 import { Table } from 'react-bootstrap';
@@ -13,12 +12,14 @@ const ItemCarrinho = ({ itens }: ItemCarrinhoProps) => {
   const deletar = async (id: string) => {
     let lista: IItemCarrinho[] = [];
     itens?.map(item => {
-      if (item._id != id) lista.push(item);
+      if (item._id !== id)
+        lista.push(item);
+      return true;
     })
 
     const response = await deleteItemCarrinho(id);
 
-    if (response.status == 200) {
+    if (response.status === 200) {
       let cart = JSON.parse(localStorage.getItem("carrinho") ?? "");
       atualizarCarrinho(cart._id, lista);
       cart.itens = lista;
