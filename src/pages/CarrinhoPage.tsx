@@ -1,26 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
-import ProductTable from "../components/ProductTables";
+import { useLocation } from "react-router-dom";
 import Header from "../components/Header";
-import { IItemCarrinho } from "../interfaces/itemCarrinho";
+import { ICarrinho } from "../interfaces/carrinho";
 import { getCarrinho } from "../services/Api";
 import ItemCarrinho from "../components/ItemCarrinho";
 
 const CarrinhoPage = () => {
-    let carrinho = JSON.parse(localStorage.getItem("carrinho") ?? "");
+    const [carrinho, setCarrinho] = useState<ICarrinho>();
 
     useEffect(() => {
-        carrinho = JSON.parse(localStorage.getItem("carrinho") ?? "");
+        const cart = JSON.parse(localStorage.getItem("carrinho") ?? "");
+        getCarrinho(String(cart._id)).then(response => setCarrinho(response.data.carrinho))
     }, []);
-
-
 
     const location = useLocation();
     return (
         <div>
             <Header />
             <h2>Carrinho de compras</h2>
-            <ItemCarrinho itens={carrinho.itens} />
+            <ItemCarrinho itens={carrinho?.itens} />
+            <p><b>Total {carrinho?.total?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</b></p>
         </div>
 
     )
