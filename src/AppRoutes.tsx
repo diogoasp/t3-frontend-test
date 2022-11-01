@@ -24,27 +24,16 @@ const AppRoutes = () => {
 
         return children;
     }
-
-    const Rola = (rola: any) => {
-        return <h1>Rola</h1>
-    }
-
     return (
         <BrowserRouter>
-            <Rola>
-
-            </Rola>
             <ProvedorAutenticacao>
                 <Routes>
                     <Route path="/" element={<LoginPage />} />
                     <Route path="/novo" element={<CreateUserPage />} />
-                    {/* <Route path="/novo" element={<CreateUserPage />} /> */}
-                    {/* <Private> */}
                     <Route path="/produtos" element={<ProdutosPage />} />
                     <Route path="/produtos/editar/:id" element={<EditProdutoPage />} />
                     <Route path="/produtos/editar/" element={<EditProdutoPage />} />
                     <Route path="/carrinho/" element={<CarrinhoPage />} />
-                    {/* </Private> */}
                 </Routes>
             </ProvedorAutenticacao>
         </BrowserRouter>

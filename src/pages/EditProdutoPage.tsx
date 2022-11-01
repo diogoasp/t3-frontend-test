@@ -1,10 +1,6 @@
-import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
-import MockProdutoController from "../controller/MockProdutoController";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-// import MockProdutoController from "../controller/MockProdutoController";
 import { IProduto } from "../interfaces/produto";
 import { atualizarProduto, buscarProduto } from "../services/Api";
 
@@ -26,13 +22,11 @@ const EditProdutoPage = () => {
     const setOrUpdate = (evento: React.FormEvent) => {
         evento.preventDefault();
 
-        const prod = {
-            _id: id,
-            nome: nome,
-            descricao: descricao,
-            valor: Number(valor)
-        }
-        atualizarProduto(id ?? "", prod).then(response => response.data.produto);
+        produto.nome = nome !== '' ? nome : produto.nome;
+        produto.descricao = descricao !== '' ? descricao : produto.descricao;
+        produto.valor = valor !== '' ? parseFloat(valor) : produto.valor;
+
+        atualizarProduto(id ?? "", produto).then(response => response.data.produto);
 
         navigate("/produtos");
     };
@@ -48,11 +42,11 @@ const EditProdutoPage = () => {
                 </Form.Group>
                 <Form.Group className="mb-2" controlId="formBasicDescription">
                     <Form.Label>Descrição</Form.Label>
-                    <Form.Control type="text" name="descricao" placeholder={produto.descricao} value={descricao} onChange={(evento) => setDescricao(evento.target.value)} />
+                    <Form.Control type="text" name="descricao" placeholder={produto.descricao} value={descricao || ""} onChange={(evento) => setDescricao(evento.target.value)} />
                 </Form.Group>
                 <Form.Group className="mb-2" controlId="formBasicCost">
                     <Form.Label>Valor</Form.Label>
-                    <Form.Control type="text" name="valor" placeholder={produto.valor !== undefined ? produto.valor.toString() : "0"} value={valor} onChange={(evento) => setValor(evento.target.value)} />
+                    <Form.Control type="text" name="valor" placeholder={produto.valor !== undefined ? produto.valor.toString() : "0"} value={valor || ""} onChange={(evento) => setValor(evento.target.value)} />
                 </Form.Group>
                 <Button className="mb-2" variant="dark" type="submit" id='enviar'>Enviar</Button>
             </Form>

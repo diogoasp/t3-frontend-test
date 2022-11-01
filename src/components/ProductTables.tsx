@@ -7,9 +7,6 @@ import { IUsuario } from '../interfaces/usuario';
 import { adicionarItemCarrinho, atualizarCarrinho, buscarProduto, deletarProduto, getItemCarrinho } from '../services/Api';
 import { Table } from 'react-bootstrap';
 import { BiCart, BiEditAlt, BiTrash } from 'react-icons/bi';
-import { Link } from "react-router-dom";
-import { IProdutoController } from '../interfaces/produtoController';
-import { IUsuario } from '../interfaces/usuario';
 
 interface ProdutoProps {
   produtos: IProduto[] | undefined;
@@ -84,7 +81,7 @@ const ProductTable = ({ produtos }: ProdutoProps) => {
         </thead>
         <tbody>
           {
-            produtos.map((prod) => (
+            produtos?.map((prod) => (
 
               <tr key={prod._id} id={prod._id + 'tr'}>
                 <td id={prod._id + '-nome'}>{prod.nome}</td>
@@ -93,9 +90,9 @@ const ProductTable = ({ produtos }: ProdutoProps) => {
                 {eAdmin() ?
                   < div className='d-flex justify-content-center'>
                     <td><Link className='btn-table' id={prod._id + "-editar"} to={{ pathname: `editar/${prod._id}` }}><BiEditAlt /></Link></td>
-                    <td><button className='btn-table' id={prod._id + "-excluir"} onClick={deleteHandler(prod._id !== undefined ? prod._id : 0)} ><BiTrash /></button></td>
+                    <td><button className='btn-table' id={prod._id + "-excluir"} onClick={deleteHandler(prod._id !== undefined ? prod._id : "")} ><BiTrash /></button></td>
                   </div>
-                  : <td><button className='btn-table' id={prod._id + "-add"} onClick={deleteHandler(prod._id !== undefined ? prod._id : 0)} ><BiCart /></button></td>
+                  : <td><button className='btn-table' id={prod._id + "-add"} onClick={carrinhoHandler(prod._id !== undefined ? prod._id : "")} ><BiCart /></button></td>
                 }
               </tr>
             ))

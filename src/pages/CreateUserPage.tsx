@@ -1,19 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
-import MockUsuarioController from "../controller/MockUsuarioController";
-import MockUsuarioRepository from "../repository/MockUsuarioRepository";
 import Form from 'react-bootstrap/Form';
 import { Alert } from "react-bootstrap";
+import { ContextoAutenticacao } from "../context/contextoAutenticacao";
 
 
 const CreateUserPage = () => {
+    const { cadastro, usuario } = useContext(ContextoAutenticacao);
     const [senha, setSenha] = useState("");
     const [senhaValidacao, setsenhaValidacao] = useState("");
     const [email, setEmail] = useState("");
     const [state, setStateMsg] = React.useState({ msg: "", erro: false });
 
-    const controller = new MockUsuarioController(new MockUsuarioRepository());
     const create = (evento: React.FormEvent) => {
         evento.preventDefault();
         if (email === "" || senha === "" || senhaValidacao === "") {
@@ -24,13 +23,7 @@ const CreateUserPage = () => {
             setStateMsg({ msg: 'Senhas não coincidem.', erro: true });
             return;
         }
-        if (controller.setUsuario(email, senha)) {
-            setStateMsg({ msg: 'Cadastro realizado com sucesso!', erro: false });
-            return;
-        } else {
-            setStateMsg({ msg: 'Email em uso!', erro: true });
-            return;
-        }
+        cadastro(email, senha).then(() => setStateMsg({ msg: 'Cadastro realizado com sucesso!', erro: false })).catch(() => setStateMsg({ msg: 'Email em uso!', erro: true }));
 
     };
 
